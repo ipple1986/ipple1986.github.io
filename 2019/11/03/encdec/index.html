@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/imgs/favicon.jpg?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/imgs/favicon.jpg?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/imgs/favicon.jpg?v=7.4.0">
+  <link rel="mask-icon" href="/imgs/favicon.jpg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="A.UTF8UTF8编码12345678910111213141516const utf8=(str)=&amp;gt;&amp;#123;	var result=[];	for(var i=0;i&amp;lt;str.length;i++)&amp;#123;		if(str.charCodeAt(i)&amp;lt;=0x7F)&amp;#123;			result[result.length]=str.charCodeAt(i);		&amp;">
+<meta name="keywords" content="编解码,utf8,base64,obfuscate">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编解码utf8&#x2F;basee64&#x2F;obfuscate">
+<meta property="og:url" content="http://ipple1986.github.io/2019/11/03/encdec/index.html">
+<meta property="og:site_name" content="热爱技术，永不妥协">
+<meta property="og:description" content="A.UTF8UTF8编码12345678910111213141516const utf8=(str)=&amp;gt;&amp;#123;	var result=[];	for(var i=0;i&amp;lt;str.length;i++)&amp;#123;		if(str.charCodeAt(i)&amp;lt;=0x7F)&amp;#123;			result[result.length]=str.charCodeAt(i);		&amp;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-03T02:40:47.912Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="编解码utf8&#x2F;basee64&#x2F;obfuscate">
+<meta name="twitter:description" content="A.UTF8UTF8编码12345678910111213141516const utf8=(str)=&amp;gt;&amp;#123;	var result=[];	for(var i=0;i&amp;lt;str.length;i++)&amp;#123;		if(str.charCodeAt(i)&amp;lt;=0x7F)&amp;#123;			result[result.length]=str.charCodeAt(i);		&amp;">
+  <link rel="canonical" href="http://ipple1986.github.io/2019/11/03/encdec/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>编解码utf8/basee64/obfuscate | 热爱技术，永不妥协</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">热爱技术，永不妥协</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">欢迎热爱技术的朋友，一起学习一起进步</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://ipple1986.github.io/2019/11/03/encdec/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jim">
+      <meta itemprop="description" content="技术心得分享，学习经验总结">
+      <meta itemprop="image" content="/imgs/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="热爱技术，永不妥协">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">编解码utf8/basee64/obfuscate
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-03 02:40:47" itemprop="dateCreated datePublished" datetime="2019-11-03T02:40:47Z">2019-11-03</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="A-UTF8"><a href="#A-UTF8" class="headerlink" title="A.UTF8"></a>A.UTF8</h3><h5 id="UTF8编码"><a href="#UTF8编码" class="headerlink" title="UTF8编码"></a>UTF8编码</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> utf8=<span class="function">(<span class="params">str</span>)=&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> result=[];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;str.length;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(str.charCodeAt(i)&lt;=<span class="number">0x7F</span>)&#123;</span><br><span class="line">			result[result.length]=str.charCodeAt(i);</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(str.charCodeAt(i)&lt;=<span class="number">0x7FF</span>)&#123;</span><br><span class="line">			result[result.length]=<span class="number">0xC0</span> | (str.charCodeAt(i)&gt;&gt;<span class="number">6</span> &amp; <span class="number">0x1F</span>);</span><br><span class="line">			result[result.length]=<span class="number">0x80</span> | (str.charCodeAt(i) &amp; <span class="number">0x3F</span>);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			result[result.length]=<span class="number">0xE0</span> | (str.charCodeAt(i)&gt;&gt;<span class="number">12</span> &amp; <span class="number">0x0F</span>);</span><br><span class="line">			result[result.length]=<span class="number">0x80</span> | (str.charCodeAt(i)&gt;&gt;<span class="number">6</span> &amp; <span class="number">0x3F</span>);</span><br><span class="line">			result[result.length]=<span class="number">0x80</span> | (str.charCodeAt(i) &amp; <span class="number">0x3F</span>);			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="UTF8解码"><a href="#UTF8解码" class="headerlink" title="UTF8解码"></a>UTF8解码</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> utf8decode=<span class="function">(<span class="params">bytes</span>)=&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> result=<span class="string">''</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;bytes.length;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>((bytes[i]&amp;<span class="number">0x80</span>)==<span class="number">0</span>)&#123;</span><br><span class="line">			result += <span class="built_in">String</span>.fromCharCode(bytes[i]);</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>((bytes[i]&amp;<span class="number">0xE0</span>)==<span class="number">0xC0</span>)&#123;</span><br><span class="line">			result += <span class="built_in">String</span>.fromCharCode(((bytes[i]&amp;<span class="number">0x1F</span>)&lt;&lt;<span class="number">6</span>)|(bytes[i+<span class="number">1</span>]&amp;<span class="number">0x3F</span>));</span><br><span class="line">			i+=<span class="number">1</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			result += <span class="built_in">String</span>.fromCharCode(((bytes[i]&amp;<span class="number">0x0F</span>)&lt;&lt;<span class="number">12</span>)|((bytes[i+<span class="number">1</span>]&amp;<span class="number">0x3F</span>)&lt;&lt;<span class="number">6</span>)|(bytes[i+<span class="number">2</span>]&amp;<span class="number">0x3F</span>));</span><br><span class="line">			i+=<span class="number">2</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="B-Base64"><a href="#B-Base64" class="headerlink" title="B.Base64"></a>B.Base64</h3><h5 id="Base64编码"><a href="#Base64编码" class="headerlink" title="Base64编码"></a>Base64编码</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> base64=<span class="function">(<span class="params">bytes</span>)=&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">const</span> alpha=<span class="string">"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"</span>.split(<span class="string">""</span>);</span><br><span class="line">	<span class="keyword">var</span> result=<span class="string">''</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;bytes.length;i+=<span class="number">3</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(i==(bytes.length<span class="number">-1</span>))&#123;</span><br><span class="line">			result+=alpha[bytes[i]&gt;&gt;&gt;<span class="number">2</span>&amp;<span class="number">0x3F</span>] + alpha[bytes[i]&lt;&lt;<span class="number">4</span>&amp;<span class="number">0x3F</span>] +<span class="string">"=="</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(i==(bytes.length<span class="number">-2</span>))&#123;</span><br><span class="line">			result+=alpha[bytes[i]&gt;&gt;&gt;<span class="number">2</span>&amp;<span class="number">0x3F</span>] + alpha[(bytes[i]&lt;&lt;<span class="number">4</span>|bytes[i+<span class="number">1</span>]&gt;&gt;&gt;<span class="number">4</span>)&amp;<span class="number">0x3F</span>] +alpha[bytes[i+<span class="number">1</span>]&lt;&lt;<span class="number">2</span>&amp;<span class="number">0x3F</span>] +<span class="string">"="</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			result+=alpha[bytes[i]&gt;&gt;&gt;<span class="number">2</span>&amp;<span class="number">0x3F</span>] + alpha[(bytes[i]&lt;&lt;<span class="number">4</span>|bytes[i+<span class="number">1</span>]&gt;&gt;&gt;<span class="number">4</span>)&amp;<span class="number">0x3F</span>] + alpha[(bytes[i+<span class="number">1</span>]&lt;&lt;<span class="number">2</span>|bytes[i+<span class="number">2</span>]&gt;&gt;&gt;<span class="number">6</span>)&amp;<span class="number">0x3F</span>] +alpha[bytes[i+<span class="number">2</span>]&amp;<span class="number">0x3F</span>];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Base64解码"><a href="#Base64解码" class="headerlink" title="Base64解码"></a>Base64解码</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> base64decode=<span class="function">(<span class="params">str</span>)=&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> result=[];</span><br><span class="line">	<span class="keyword">const</span> convertor=<span class="function"><span class="params">c</span>=&gt;</span>&#123;</span><br><span class="line">		<span class="keyword">var</span> cc=c.charCodeAt();</span><br><span class="line">		<span class="keyword">if</span>(cc&gt;=<span class="number">65</span>&amp;&amp;cc&lt;=<span class="number">90</span>)<span class="keyword">return</span> (cc<span class="number">-65</span>);</span><br><span class="line">		<span class="keyword">if</span>(cc&gt;=<span class="number">97</span>&amp;&amp;cc&lt;=<span class="number">122</span>)<span class="keyword">return</span> (cc<span class="number">-97</span>+<span class="number">26</span>);</span><br><span class="line">		<span class="keyword">if</span>(cc&gt;=<span class="number">48</span>&amp;&amp;cc&lt;=<span class="number">57</span>)<span class="keyword">return</span> (cc<span class="number">-48</span>+<span class="number">52</span>);</span><br><span class="line">		<span class="keyword">if</span>(cc==<span class="number">43</span>)<span class="keyword">return</span> <span class="number">62</span>;<span class="keyword">if</span>(cc==<span class="number">47</span>)<span class="keyword">return</span> <span class="number">63</span>;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;str.length;i+=<span class="number">4</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(str.charAt(i+<span class="number">2</span>)===<span class="string">'='</span>)&#123;</span><br><span class="line">			result[result.length]= (convertor(str.charAt(i))&lt;&lt;<span class="number">2</span>|convertor(str.charAt(i+<span class="number">1</span>))&gt;&gt;&gt;<span class="number">4</span>)&amp;<span class="number">0xFF</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(str.charAt(i+<span class="number">3</span>)===<span class="string">'='</span>)&#123;</span><br><span class="line">			result[result.length]= (convertor(str.charAt(i))&lt;&lt;<span class="number">2</span>|convertor(str.charAt(i+<span class="number">1</span>))&gt;&gt;&gt;<span class="number">4</span>)&amp;<span class="number">0xFF</span>;</span><br><span class="line">			result[result.length]= (convertor(str.charAt(i+<span class="number">1</span>))&lt;&lt;<span class="number">4</span>|convertor(str.charAt(i+<span class="number">2</span>))&gt;&gt;&gt;<span class="number">2</span>)&amp;<span class="number">0xFF</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			result[result.length]= (convertor(str.charAt(i))&lt;&lt;<span class="number">2</span>|convertor(str.charAt(i+<span class="number">1</span>))&gt;&gt;&gt;<span class="number">4</span>)&amp;<span class="number">0xFF</span>;</span><br><span class="line">			result[result.length]= (convertor(str.charAt(i+<span class="number">1</span>))&lt;&lt;<span class="number">4</span>|convertor(str.charAt(i+<span class="number">2</span>))&gt;&gt;&gt;<span class="number">2</span>)&amp;<span class="number">0xFF</span>;</span><br><span class="line">			result[result.length]= (convertor(str.charAt(i+<span class="number">2</span>))&lt;&lt;<span class="number">6</span>|convertor(str.charAt(i+<span class="number">3</span>)))&amp;<span class="number">0xFF</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="UTF8-Base64-编码解码"><a href="#UTF8-Base64-编码解码" class="headerlink" title="UTF8+Base64 编码解码"></a>UTF8+Base64 编码解码</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">utf8decode(base64decode(base64(utf8(<span class="string">"汉字之美--烎垚莪龑莯--(**@&amp;&amp;#^@!，在于型、在于意、在于音，是我们文化自信的根源。可当你看到这些词：毰毸、飒纚、妙鬘、翩跹、棽俪......是不是突然觉得自己的语文对不起体育老师？"</span>))));</span><br></pre></td></tr></table></figure>
+
+<h3 id="C-Obfuscate"><a href="#C-Obfuscate" class="headerlink" title="C.Obfuscate"></a>C.Obfuscate</h3><h5 id="Obfuscate编码"><a href="#Obfuscate编码" class="headerlink" title="Obfuscate编码"></a>Obfuscate编码</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obf=<span class="function"><span class="params">str</span>=&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(str==<span class="literal">null</span>||str===<span class="string">''</span>)<span class="keyword">return</span> <span class="string">''</span>;</span><br><span class="line">	<span class="keyword">var</span> result=<span class="string">'OBF:'</span>;</span><br><span class="line">	<span class="keyword">var</span> bytes=utf8(str);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;bytes.length;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(bytes[i]&lt;<span class="number">0</span>||bytes[bytes.length-i<span class="number">-1</span>]&lt;<span class="number">0</span>)&#123;</span><br><span class="line">			c=((bytes[i]&amp;<span class="number">0xFF</span>)&lt;&lt;<span class="number">8</span>) + bytes[bytes.length-i<span class="number">-1</span>]</span><br><span class="line">			result+=<span class="string">'U'</span>+(<span class="string">'0000'</span>+c.toString(<span class="number">36</span>)).slice(<span class="number">-4</span>);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			c=((<span class="number">127</span>+bytes[i]+bytes[bytes.length-i<span class="number">-1</span>])&lt;&lt;<span class="number">8</span>) + (<span class="number">127</span>+bytes[i]-bytes[bytes.length-i<span class="number">-1</span>]);</span><br><span class="line">			result+=(<span class="string">'0000'</span>+c.toString(<span class="number">36</span>)).slice(<span class="number">-4</span>);</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Obfuscate解码"><a href="#Obfuscate解码" class="headerlink" title="Obfuscate解码"></a>Obfuscate解码</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obfdecode=<span class="function"><span class="params">str</span>=&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(str==<span class="literal">null</span>||!str.startsWith(<span class="string">'OBF:'</span>))<span class="keyword">return</span> str;</span><br><span class="line">	str=str.substr(<span class="number">4</span>);</span><br><span class="line">	<span class="keyword">var</span> bytes=[];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;str.length;i+=<span class="number">4</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(str.charAt(i)===<span class="string">'U'</span>)&#123;</span><br><span class="line">			i+=<span class="number">1</span>;</span><br><span class="line">			c=str.substring(i,i+<span class="number">4</span>);</span><br><span class="line">			t=<span class="built_in">parseInt</span>(c,<span class="number">36</span>);</span><br><span class="line">			bytes[bytes.length]=(b&gt;&gt;&gt;<span class="number">8</span>)&amp; <span class="number">0xFF</span>;</span><br><span class="line">			</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			c=str.substring(i,i+<span class="number">4</span>);</span><br><span class="line">			b=<span class="built_in">parseInt</span>(c,<span class="number">36</span>);</span><br><span class="line">			h=b&gt;&gt;&gt;<span class="number">8</span>;</span><br><span class="line">			l=b&amp;<span class="number">0xFF</span>;</span><br><span class="line">			bytes[bytes.length]=((h+l<span class="number">-254</span>)/<span class="number">2</span>) &amp; <span class="number">0xFF</span>;</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">return</span> utf8decode(bytes);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="UTF8-Obfuscate-编码解码"><a href="#UTF8-Obfuscate-编码解码" class="headerlink" title="UTF8+Obfuscate 编码解码"></a>UTF8+Obfuscate 编码解码</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obfdecode(obf(<span class="string">'1234abZAAS%$#()&amp;^%#@!'</span>));</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><figcaption><span>keng</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">前提：442+276=718</span><br><span class="line">操作：var v=(442&lt;&lt;8)+276 //=113428</span><br><span class="line">        (v&gt;&gt;8)+(v&amp;0xFF)=463</span><br><span class="line">溢出：718怎么变成463？？</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/编解码/" rel="tag"># 编解码</a>
+            
+              <a href="/tags/utf8/" rel="tag"># utf8</a>
+            
+              <a href="/tags/base64/" rel="tag"># base64</a>
+            
+              <a href="/tags/obfuscate/" rel="tag"># obfuscate</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/09/26/buildtool/" rel="next" title="Java构建工具【总结篇】">
+                  <i class="fa fa-chevron-left"></i> Java构建工具【总结篇】
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-UTF8"><span class="nav-number">1.</span> <span class="nav-text">A.UTF8</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#UTF8编码"><span class="nav-number">1.0.1.</span> <span class="nav-text">UTF8编码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#UTF8解码"><span class="nav-number">1.0.2.</span> <span class="nav-text">UTF8解码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Base64"><span class="nav-number">2.</span> <span class="nav-text">B.Base64</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Base64编码"><span class="nav-number">2.0.1.</span> <span class="nav-text">Base64编码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Base64解码"><span class="nav-number">2.0.2.</span> <span class="nav-text">Base64解码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#UTF8-Base64-编码解码"><span class="nav-number">2.0.3.</span> <span class="nav-text">UTF8+Base64 编码解码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-Obfuscate"><span class="nav-number">3.</span> <span class="nav-text">C.Obfuscate</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Obfuscate编码"><span class="nav-number">3.0.1.</span> <span class="nav-text">Obfuscate编码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Obfuscate解码"><span class="nav-number">3.0.2.</span> <span class="nav-text">Obfuscate解码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#UTF8-Obfuscate-编码解码"><span class="nav-number">3.0.3.</span> <span class="nav-text">UTF8+Obfuscate 编码解码</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/imgs/avatar.jpg"
+      alt="Jim">
+  <p class="site-author-name" itemprop="name">Jim</p>
+  <div class="site-description" itemprop="description">技术心得分享，学习经验总结</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/ipple1986" title="GitHub &rarr; https://github.com/ipple1986" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:ipple1986@gmail.com" title="E-Mail &rarr; mailto:ipple1986@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="skype:zhiwenzhao?call|chat" title="Skype &rarr; skype:zhiwenzhao?call|chat" rel="noopener" target="_blank"><i class="fa fa-fw fa-skype"></i>Skype</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jim</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.0</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
