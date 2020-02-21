@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/imgs/favicon.jpg?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/imgs/favicon.jpg?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/imgs/favicon.jpg?v=7.4.0">
+  <link rel="mask-icon" href="/imgs/favicon.jpg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="A.安装pip/scrapy B.创建项目/编写爬虫逻辑 C.解决301永久重定向问题  A.安装pip/scrapy1# sudo apt-get install python-pip  1# sudo pip install scrapy  B.创建项目/编写爬虫逻辑1# scrapy startproject allitebooks crawls  123# cd crawls# scra">
+<meta name="keywords" content="爬虫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Python Scrapy爬取allitebooks.org数据">
+<meta property="og:url" content="http://ipple1986.github.io/2020/02/21/ebooks/index.html">
+<meta property="og:site_name" content="热爱技术，永不妥协">
+<meta property="og:description" content="A.安装pip/scrapy B.创建项目/编写爬虫逻辑 C.解决301永久重定向问题  A.安装pip/scrapy1# sudo apt-get install python-pip  1# sudo pip install scrapy  B.创建项目/编写爬虫逻辑1# scrapy startproject allitebooks crawls  123# cd crawls# scra">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-21T12:04:52.231Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Python Scrapy爬取allitebooks.org数据">
+<meta name="twitter:description" content="A.安装pip/scrapy B.创建项目/编写爬虫逻辑 C.解决301永久重定向问题  A.安装pip/scrapy1# sudo apt-get install python-pip  1# sudo pip install scrapy  B.创建项目/编写爬虫逻辑1# scrapy startproject allitebooks crawls  123# cd crawls# scra">
+  <link rel="canonical" href="http://ipple1986.github.io/2020/02/21/ebooks/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>使用Python Scrapy爬取allitebooks.org数据 | 热爱技术，永不妥协</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">热爱技术，永不妥协</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">欢迎热爱技术的朋友，一起学习一起进步</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://ipple1986.github.io/2020/02/21/ebooks/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jim">
+      <meta itemprop="description" content="技术心得分享，学习经验总结">
+      <meta itemprop="image" content="/imgs/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="热爱技术，永不妥协">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">使用Python Scrapy爬取allitebooks.org数据
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-21 12:04:52" itemprop="dateCreated datePublished" datetime="2020-02-21T12:04:52Z">2020-02-21</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li>A.安装pip/scrapy</li>
+<li>B.创建项目/编写爬虫逻辑</li>
+<li>C.解决301永久重定向问题</li>
+</ul>
+<h3 id="A-安装pip-scrapy"><a href="#A-安装pip-scrapy" class="headerlink" title="A.安装pip/scrapy"></a>A.安装pip/scrapy</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sudo apt-get install python-pip</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sudo pip install scrapy</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="B-创建项目-编写爬虫逻辑"><a href="#B-创建项目-编写爬虫逻辑" class="headerlink" title="B.创建项目/编写爬虫逻辑"></a>B.创建项目/编写爬虫逻辑</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> scrapy startproject allitebooks crawls</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> crawls</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> scrapy genspider ebooks allitebooks.org</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> vi allitebooks/spiders/ebooks.py</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EbooksSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">'ebooks'</span></span><br><span class="line">    allowed_domains = [<span class="string">'allitebooks.org'</span>]</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start_requests</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">yield</span> scrapy.Request(url=<span class="string">'http://allitebooks.org'</span>,callback=self.requestAllPages,dont_filter=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">requestAllPages</span><span class="params">(self,response)</span>:</span></span><br><span class="line">    	<span class="comment"># 获取总页数</span></span><br><span class="line">        nums = response.xpath(<span class="string">"//div[@class='pagination clearfix']/a[last()]/text()"</span>).get()</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'numbers of totalPages is %s'</span> % nums</span><br><span class="line">        <span class="comment"># 请求每个页面</span></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> range(<span class="number">1</span>,int(nums)+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">yield</span> scrapy.Request(<span class="string">'http://allitebooks.org/page/%d/'</span> % num,self.parsePage,<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parsePage</span><span class="params">(self, response)</span>:</span></span><br><span class="line">    	<span class="comment"># 获取每本书的链接入口</span></span><br><span class="line">        urls = response.xpath(<span class="string">"//article/div/header/h2/a/@href"</span>).getall()</span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">            <span class="keyword">yield</span> response.follow(url,self.parse)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">    	<span class="comment"># 解析每本书的数据项，使用xpath</span></span><br><span class="line">        name = response.xpath(<span class="string">"//h1/text()"</span>).get()</span><br><span class="line">        img = response.xpath(<span class="string">"//div[@class='entry-meta clearfix']/div[1]/a/img/@src"</span>).get()</span><br><span class="line">        author = response.xpath(<span class="string">"//div[@class='entry-meta clearfix']/div[2]/dl/dd[1]/a/text()"</span>).get()</span><br><span class="line">        isbn = response.xpath(<span class="string">"//div[@class='entry-meta clearfix']/div[2]/dl/dd[2]/text()"</span>).get()</span><br><span class="line">        year = response.xpath(<span class="string">"//div[@class='entry-meta clearfix']/div[2]/dl/dd[3]/text()"</span>).get()</span><br><span class="line">        pages = response.xpath(<span class="string">"//div[@class='entry-meta clearfix']/div[2]/dl/dd[4]/text()"</span>).get()</span><br><span class="line">        lang = response.xpath(<span class="string">"//div[@class='entry-meta clearfix']/div[2]/dl/dd[5]/text()"</span>).get()</span><br><span class="line">        size = response.xpath(<span class="string">"//div[@class='entry-meta clearfix']/div[2]/dl/dd[6]/text()"</span>).get()</span><br><span class="line">        f0rmat = response.xpath(<span class="string">"//div[@class='entry-meta clearfix']/div[2]/dl/dd[7]/text()"</span>).get()</span><br><span class="line">        category = response.xpath(<span class="string">"//div[@class='entry-meta clearfix']/div[2]/dl/dd[8]/a/text()"</span>).get()</span><br><span class="line">        url = response.xpath(<span class="string">"//footer[@class='entry-footer clearfix']/div/span[1]/a/@href"</span>).get()</span><br><span class="line">        <span class="keyword">yield</span> &#123;<span class="string">'name'</span>:name,<span class="string">'img'</span>:img,<span class="string">'author'</span>:author,<span class="string">'isbn'</span>:isbn,<span class="string">'year'</span>:year,<span class="string">'pages'</span>:pages,<span class="string">'lang'</span>:lang,<span class="string">'size'</span>:size,<span class="string">'format'</span>:f0rmat,<span class="string">'category'</span>:category,<span class="string">'url'</span>:url&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="C-解决301永久重定向问题"><a href="#C-解决301永久重定向问题" class="headerlink" title="C.解决301永久重定向问题"></a>C.解决301永久重定向问题</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> scrawls/allitebooks</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> vi settings.py // 添加 HTTPERROR_ALLOWED_CODES = [301]</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy.Request(url,callback,dont_filter)第三个参数传True</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/11/03/encdec/" rel="next" title="编解码utf8/basee64/obfuscate">
+                  <i class="fa fa-chevron-left"></i> 编解码utf8/basee64/obfuscate
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-安装pip-scrapy"><span class="nav-number">1.</span> <span class="nav-text">A.安装pip/scrapy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-创建项目-编写爬虫逻辑"><span class="nav-number">2.</span> <span class="nav-text">B.创建项目/编写爬虫逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-解决301永久重定向问题"><span class="nav-number">3.</span> <span class="nav-text">C.解决301永久重定向问题</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/imgs/avatar.jpg"
+      alt="Jim">
+  <p class="site-author-name" itemprop="name">Jim</p>
+  <div class="site-description" itemprop="description">技术心得分享，学习经验总结</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/ipple1986" title="GitHub &rarr; https://github.com/ipple1986" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:ipple1986@gmail.com" title="E-Mail &rarr; mailto:ipple1986@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="skype:zhiwenzhao?call|chat" title="Skype &rarr; skype:zhiwenzhao?call|chat" rel="noopener" target="_blank"><i class="fa fa-fw fa-skype"></i>Skype</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jim</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.0</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
