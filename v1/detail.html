@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<title></title>
+
+	<!--[if lt IE 9]>
+  		<script src="http:--cdn.static.runoob.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+	<script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+	<style type="text/css">
+		/*全局*/
+		html{
+			background: #eee;		
+		}		
+		body,*{
+			font-size: 16px;
+			padding: 0px;
+			margin: 0px;
+		}
+		/*页面容器*/
+		.g-container {
+			width: 100%;
+			max-width: 40.625rem;
+			background-color:#eee;
+			margin:auto;
+			height:-webkit-calc(100vh - 3rem);
+			min-height:-webkit-calc(100vh - 3rem);
+			height:calc(100vh - 3rem);
+			min-height:calc(100vh - 3rem);
+			position: relative;
+			overflow-x: hidden;
+			overflow-y: auto;
+			border: 0rem;
+			padding: 0rem;
+			box-shadow: 0px 0px 0px transparent;
+
+		}
+		/*首尾部*/
+		.g-footer,.g-header {
+			width: 100%;
+			max-width: 40.625rem;
+			position: fixed;
+			cursor: pointer;
+			
+		}
+		.g-footer{
+			bottom: 0px;
+			height:3rem;
+			line-height: 3rem;
+			background: white;
+		}
+		.g-header{
+			top:0px;
+			height:2.4rem;
+			line-height: 2.4rem;
+			background: transparent;
+		}
+
+		/*颜色块定义*/
+		.g-color-red{
+			color: #ff0000;
+			font-weight: bold;
+		}
+		.g-color-gray{
+			color:gray;
+			font-size: 0.8rem;
+			font-family: 'none'
+		}
+
+ul,ul li {
+    padding:0px;
+    margin: 0px;
+    border: 0px;
+    display: inline-block;
+    text-align: center;
+}
+
+/*菜单*/
+.g-footer ul{
+	width: 100%;
+	max-width: 40.625rem;
+	position: fixed;
+	bottom: 0px;
+	padding:0px;
+    margin: 0px;
+    border: 0px;
+	
+}
+.g-footer ul li{
+	 width:20%;
+    max-width: 8.125rem;
+    font-size:.8rem;
+}
+
+/*详情页头部 位置*/
+.g-header section{
+	padding: 0rem;
+	margin: 0rem;
+	float:left;
+	text-align: center;
+	height: 100%;
+	color: gray;
+}
+.g-header section:nth-child(2n+1){
+	width: 20%;
+}
+.g-header section:nth-child(2n){
+	width: 60%;
+}
+
+.g-header .g-button-back{
+	border:1px solid gray;
+	border-radius: 4px;
+	padding: 2px;
+}
+.g-header .g-message-bar{
+	
+}
+.g-header .g-button-share{
+	border:1px solid gray;
+	border-radius: 4px;
+	padding: 2px;
+}
+/*详情页内容 部分*/
+/*.g-middle{
+	overflow-x:hidden;
+	overflow-x:auto;
+}*/
+.g-middle .detail-image-list{
+	width: calc(100vw);
+	height:0rem;/*calc(100vw);*/
+	background: white;
+}
+
+.g-middle .detail-prod-info{
+	width: calc(100vw);
+	background: white;
+	margin: 0rem 0rem .4rem 0rem;
+}
+
+.detail-prod-price-sales{
+	padding: .6rem .6rem 0rem .6rem;
+	height: 2rem;
+	vertical-align: bottom;
+}
+.detail-prod-price-sales > span{
+	float:left;
+	background: white;
+	height: 2rem;
+	line-height: 2rem;
+	
+}
+.detail-prod-price{
+	width: calc((100vw - 1.2rem)*2/3);
+	max-width: calc((40.625rem - 1.2rem)*2/3);
+	color: red;
+	font-size: 1.5rem;
+}
+
+.detail-prod-price span {
+	color: red;	
+	font-size: .8rem;
+	padding: 0rem;
+	margin: 0rem;
+}
+.detail-prod-price span:last-child{
+	text-decoration: line-through;
+	color: black;	
+	margin-left: .3rem;
+}
+.detail-prod-sales {
+	width: calc((100vw - 1.2rem)/3);
+	max-width: calc((40.625rem - 1.2rem)/3);
+	color: gray;
+	text-align: right;
+	font-size: .8rem;
+}
+.detail-prod-exet-info{
+	width: calc(100vw - 1.2rem);
+	max-width: calc(40.625rem - 1.2rem);
+	padding:  0rem .6rem;
+	font-size: .7rem;
+	color: red;
+	height: 1.2rem;
+	line-height: 1.2rem;
+	display:inline-block;
+}
+.detail-prod-title {
+	width: calc(100vw - 1.2rem);
+	max-width: calc(40.625rem - 1.2rem);
+	padding:  .3rem .6rem;
+	font-size: 1rem;
+	color: black;
+	font-weight: bold;
+	line-height: 1.6rem;
+	cursor: pointer;
+}
+
+.detail-prod-discount,.detail-prod-explain{
+	width: calc(100vw - 1.2rem);
+	max-width: calc(40.625rem - 1.2rem);
+	margin:  0rem .6rem;
+	font-size: .8rem;
+	
+	cursor: pointer;
+}
+.detail-prod-discount{
+	border-bottom: .05rem solid #eee;
+}
+
+
+.detail-prod-discount-content,.detail-prod-explain-content{
+	color: gray;
+	font-size: .8rem;
+	width: calc((100vw - 2.2rem)*4/5);
+	max-width: calc((40.625rem - 2.2rem)*4/5);
+	line-height: 2.4rem;
+	display: inline-block;
+
+}
+.detail-prod-discount-content > span{
+	display: block;
+	line-height: 2.4rem;
+	height: 2.4rem;
+	font-size: .8rem;
+}
+.detail-prod-explain-content {
+	overflow: hidden;	
+	white-space: nowrap;
+	line-height: 2.4rem;
+	height: 2.4rem;
+	vertical-align: middle;
+}
+
+.g-icon-arrow{
+	font-size: .7rem;
+}
+
+.detail-prod-discount .g-icon-arrow,.detail-prod-explain .g-icon-arrow{
+	color: gray;
+	width: calc((100vw - 2.2rem)/5);
+	max-width: calc((40.625rem - 2.2rem)/5);
+	display: inline-block;
+	text-align: right;
+	padding-right: .3rem;
+	font-size: .8rem;
+	vertical-align: middle;
+	height: 100%;
+}
+.detail-prod-discount .g-icon-arrow{
+	height: 2.4rem;
+	max-height: 4.8rem;
+	line-height: 2.4rem;
+	vertical-align: middle;
+
+}
+.detail-prod-explain .g-icon-arrow{
+	height: 2.4rem;
+	line-height: 2.4rem;
+}
+
+.icon-discount-remoney{
+	background: red;
+	color: white;
+	border-radius: .2rem;
+	font-size: .8rem;
+	padding: .2rem;
+	text-align: center;
+}
+
+.icon-aiguangjie{
+	background: pink;
+	color: white;
+	border-radius: .2rem;
+	font-size: 1rem;
+	padding:  .2rem .15rem;
+	margin: 0px;
+	text-align: center;
+	font-weight: normal;
+	font-size: .9rem;
+	line-height: 1.6rem;
+	height: 1.6rem;
+}
+
+.icon-jishutuikuan{
+	background: green;
+	color: white;
+	border-radius: .2rem;
+	font-size: .8rem;
+	padding: .2rem .15rem;
+	text-align: center;
+	font-weight: normal;
+	font-size: .9rem;
+	line-height: 1.6rem;
+	height: 1.6rem;
+}
+
+/*详情页购买队列 */
+.g-middle .detail-buyer-list{
+	width: calc(100vw);
+	background: white;
+	margin: 0rem 0rem .4rem 0rem;
+}
+
+.detail-buyer-list .detail-buyer-list-title{
+	height: 2.4rem;
+	line-height: 2.4rem;
+	font-size: 1rem;
+	padding:  0rem .6rem;
+	border-bottom: .05rem solid #eee;
+	cursor: pointer;
+	width: calc(100vw - 1.2rem);
+	max-width: calc(40.625rem - 1.2rem);
+}
+
+
+/*商品评价*/
+.g-middle .detail-prod-comment{
+	width: calc(100vw);
+	background: white;
+	margin: 0rem 0rem .4rem 0rem;
+	padding-bottom: .2rem;
+}
+.detail-prod-comment .detail-prod-comment-title{
+	height: 2.4rem;
+	line-height: 2.4rem;
+	font-size: 1rem;
+	padding:  0rem .6rem;
+	border-bottom: .05rem solid #eee;
+	cursor: pointer;
+	width: calc(100vw - 1.2rem);
+	max-width: calc(40.625rem - 1.2rem);
+}
+.detail-prod-comment .detail-prod-comment-content {
+	margin:  .2rem .6rem  .2rem .6rem;
+	border-bottom: .05rem solid #eee;
+
+	/*height: 7rem;*/
+}
+.detail-prod-comment .detail-prod-comment-content:last-child {
+	border-bottom: 0rem;
+	/*height: 7rem;*/
+}
+
+.detail-prod-comment .detail-prod-comment-content .detail-prod-comment-header{
+	height: 1.8rem;
+	line-height: 1.8rem;
+	font-size: .8rem;
+	display: block;
+}
+.detail-prod-comment .detail-prod-comment-content .detail-prod-comment-header img{
+	
+	vertical-align: middle;
+	align:baseline;
+	width: 1.4rem;
+	height: 1.4rem;
+	margin: 0rem .5rem 0rem 0rem;
+	border:.1rem solid white;
+	border-radius: 50%;
+
+}
+.detail-prod-comment .detail-prod-comment-content .detail-prod-comment-msg{
+	line-height: 1.4rem;
+	max-height: 3.2rem;
+	overflow: hidden;
+	display: block;
+	font-size: .8rem;
+	cursor: pointer;
+border:.05rem solid white;
+	word-break:break-all;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+	
+}
+
+/*卖家客服答疑(123)*/
+.g-middle .detail-seller-replys{
+	width: calc(100vw);
+	background: white;
+	margin: 0rem 0rem .4rem 0rem;
+}
+.detail-seller-replys .detail-seller-replys-title{
+	height: 2.4rem;
+	line-height: 2.4rem;
+	font-size: 1rem;
+	padding:  0rem .6rem;
+	border-bottom: .05rem solid #eee;
+	cursor: pointer;
+	display: block;
+}
+.detail-seller-replys .detail-seller-replys-content {
+	padding:  0rem .6rem;
+	margin-top:.4rem;
+	display: block;
+}
+.detail-seller-replys-content .detail-seller-reply{
+	height: 1.4rem;
+	line-height: 1.4rem;
+	display: inline-block;
+}
+.detail-seller-replys-content >.detail-seller-reply > span{
+	height: 1.4rem;
+	line-height: 1.4rem;
+	padding: 0rem;
+	margin: 0;
+	float: left;
+	font-size: .8rem;
+} 
+.detail-seller-replys-content >.detail-seller-reply > span:first-child{
+	display: inherit;
+	width: calc(((100vw - 1.2rem)*2)/3);
+	max-width: calc(((40.625rem - 1.2rem)*2)/3);
+}
+.detail-seller-reply > span:first-child > img{
+	width: 1rem;
+	height: 1rem;
+	margin: 0rem .5rem 0rem 0rem;
+	border:.1rem solid white;
+	border-radius: 50%;
+	align:baseline;
+	vertical-align: middle;
+}
+.detail-seller-replys-content >.detail-seller-reply > span:last-child{
+	display: inherit;
+	width: calc((100vw - 1.2rem)/3);
+	max-width: calc((40.625rem - 1.2rem)/3);	
+	text-align: right;
+}
+/*商家信息*/
+.g-middle .detail-shop-info{
+	width: calc(100vw);
+	background: white;
+	margin: 0rem 0rem .4rem 0rem;
+	/*height: 7rem;*/
+	padding-top: .6rem;
+}
+.detail-shop-bar,.detail-shop-promise{
+	padding:  0rem .6rem;
+	width: calc(100vw - 1.2rem);
+	max-width: calc(40.625rem - 1.2rem);
+	display: inline-block;
+}
+.detail-shop-promise > span{
+	width: calc((100vw - 1.2rem)/3);
+	max-width: calc((40.625rem - 1.2rem)/3);
+	float: left;
+	text-align: center;
+	font-size: .7rem;
+	height: 1.8rem;
+	line-height: 1.8rem;
+	
+}
+.detail-shop-bar .detail-shop-icon{
+	float: left;
+	width: 2.5rem;
+	height: 2.5rem;
+	margin-right:1rem;
+}
+.detail-shop-bar .detail-shop-icon img{
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: .2rem;
+	border:.1rem solid #eee;
+	padding: 0rem;
+}
+.detail-shop-bar .detail-shop-middle-info{
+	float: left;
+	width: calc((100vw - 4.9rem)*2/3);
+	max-width: calc((40.625rem - 4.9rem)*2/3);
+}
+.detail-shop-bar .detail-shop-middle-info span{
+	
+	
+}
+.detail-shop-middle-info .detail-shop-name{
+	height: 1.4rem;
+	line-height: 1.4rem;
+	font-size: .9rem;
+	display: block;
+}
+.detail-shop-middle-info .detail-shop-nums{
+	height: 1.1rem;
+	line-height: 1.1rem;
+	font-size: .8rem;
+	display: block;
+	color:gray;
+}
+.detail-shop-bar .detail-shop-btn{
+	float: left;
+	height: 2.5rem;
+	line-height: 2.5rem;
+	width: calc((100vw - 4.9rem)/3);
+	max-width: calc((40.625rem - 4.9rem)/3);	
+	font-size: .9rem;
+	text-align: right;
+}
+/*商品详情*/
+.g-middle .detail-prod-detail{
+	width: calc(100vw);
+	background: white;
+	margin: 0rem 0rem .4rem 0rem;
+}
+
+	</style>
+	<script type="text/javascript">
+
+window.onload=function(){
+
+		
+}
+
+
+	</script>
+</head>
+<body>
+<div class="g-container">
+	<header class="g-header">
+		<section ><span class="g-button-back">返回</span></section>
+		<section class="g-message-bar">ww</section>
+		<section ><span class="g-button-share">分享</span></section>
+	</header>
+
+	<section class="g-middle"  >
+		<div class="detail-image-list">
+			<img src="ico.png" class="detail-image-list"/>
+		</div>
+		<div class="detail-prod-info">
+			<div class="detail-prod-price-sales" >
+			 	<span class="detail-prod-price"><span>￥</span>123<span>起</span><span>￥156</span></span>
+			 	<span class="detail-prod-sales">已拼xxx件</span>  	
+			</div>
+			<!-- <div class="detail-prod-exet-info" >支持分期免息，低到XX元</div> -->
+			<div class="detail-prod-title" ><span class="icon-aiguangjie">♀爱逛街</span>【20条装】家用抹布厨房洗碗布不掉毛家务清洁吸水洗碗巾擦桌布<span class="icon-jishutuikuan">极速退款</span></div>
+			<div class="detail-prod-discount" >
+				<span class="detail-prod-discount-content">
+					<span><span class="icon-discount-remoney">返现</span>&nbsp;店铺内买满XX元返yy元</span>	<span><span class="icon-discount-remoney">领卷</span>&nbsp;店铺内买满XX元返yy元</span>
+				</span>
+				<span class="g-icon-arrow">〉</span>
+			</div>
+			<div class="detail-prod-explain" >
+				<span class="detail-prod-explain-content">全场包邮 ‧ 极速退款 ‧ 全场包邮 ‧ 7天退换 ‧ 48小时发货 ‧ 假一赔十</span>
+				
+				<span class="g-icon-arrow">〉<!-- 〈 --></span></div>
+		</div>
+		<div class="detail-buyer-list">
+			<div class="detail-buyer-list-title">这些人刚刚购买成功，可插队拼单</div>
+			<div class="detail-buyer-list-roll" style="position: relative;">
+
+				<span class ="roll_list_animation-x" style="background: transparent;">
+					<span class="detail-buyer-list-roll-item">
+						<span >
+							<img src="ico.png"/>赵哥
+						</span>
+						<span class="secs" ref="1000000000xx">
+							还有多少时间
+						</span>
+						<span >
+							<span class="icon-discount-remoney">立即购买</span>
+						</span>
+					</span>
+					<span class="detail-buyer-list-roll-item">
+						<span >
+							<img src="ico.png" />飞哥
+						</span>
+						<span class="secs" ref="1000000000xx">
+							还有多少时间
+						</span>
+						<span >
+							<span class="icon-discount-remoney">立即购买</span>
+						</span>
+					</span>
+				</span>
+				<span class ="roll_list_animation-x" style="background: yellow;">
+					<span class="detail-buyer-list-roll-item">
+						3
+					</span>
+					<span class="detail-buyer-list-roll-item">
+						4
+					</span>
+				</span>
+			</div>
+		</div>
+		<style type="text/css">
+			.detail-buyer-list .detail-buyer-list-roll {
+				padding:  0rem .6rem .2rem;
+				max-height: 6.3rem;
+				overflow: hidden;
+
+			}
+
+			.detail-buyer-list-roll > span {
+				display: inherit;
+				position: relative;
+				width: calc(100vw - 1.2rem);
+				max-width: calc(40.625rem - 1.2rem);
+				padding: 0rem;
+				margin: 0rem;
+				border:0rem;
+
+			}
+			.detail-buyer-list-roll .detail-buyer-list-roll-item {
+				display: block;
+				position: relative;
+				width: calc(100vw - 1.2rem);
+				max-width: calc(40.625rem - 1.2rem);
+				height: 3.15rem;
+				padding: 0rem;
+				margin: 0rem;
+				border:0rem;
+			}
+			.detail-buyer-list-roll .border-bottom-solid-line{
+				border-bottom: 0.05rem solid #eee;
+			}
+			.roll_list_animation {
+				animation: roll_list  1.5s ease-out 0s infinite normal ;
+				-webkit-animation: roll_list  1.5s ease-out 0s infinite normal ;
+			}
+			@keyframes roll_list{
+				0%{ top :0rem;}
+				80%{ top :0rem;}
+				100%{ top:-6.3rem;}
+			}
+
+			.detail-buyer-list-roll-item > span {
+				height: 3.15rem;
+				line-height: 3.15rem;
+				display: inline;
+				overflow: hidden;
+				padding: 0rem;
+				margin: 0rem;
+				border:0rem;
+				font-size: .85rem;
+				float: left;
+			}
+			.detail-buyer-list-roll-item > span > img{
+				height: 2rem;
+				width: 2rem;
+				margin: 0.075rem 0.5rem 0.075rem 0rem;
+				border-radius: 50%;
+				border:.1rem solid white;
+				align:baseline;
+				vertical-align: middle;
+			}
+
+			.detail-buyer-list-roll-item > span:first-child {
+				width: calc((100vw - 1.2rem)*0.5);
+				max-width: calc((40.625rem - 1.2rem)*0.5);
+			}
+
+			.detail-buyer-list-roll-item > span:nth-child(2) {
+				width: calc((100vw - 1.2rem)*0.25);
+				max-width: calc((40.625rem - 1.2rem)*0.25);
+				text-align: center;
+			}
+
+			.detail-buyer-list-roll-item > span:last-child {
+				width: calc((100vw - 1.2rem)*0.25);
+				max-width: calc((40.625rem - 1.2rem)*0.25);
+				text-align: right;
+				
+			}
+		</style>
+		<script type="text/javascript">
+			getkeyframes=(name)=> {
+			    var animation = {};
+			    var ss = window.document.styleSheets;/*获取所有的style*/
+			    for (var i = 0; i < ss.length; ++i) {
+			      const item = ss[i]; /*找到cssKeyFrameRule .name / 找到cssStyleRule .selectorText*/
+			      for(var j=0;j<item.cssRules.length;j++){
+			      	if (item.cssRules[j] && item.cssRules[j].name && item.cssRules[j].name === name) {
+				        animation.cssRule = item.cssRules[j];
+				        animation.styleSheet = item;
+				        animation.index = 0;
+				        break;
+				    }
+			      }
+			    }
+			    return animation;
+			 };
+			 getStyle=(name)=> {
+			    getkeyframes.apply(this,null);
+			 };
+
+			var saleListIndex = 0;
+			const colors = ['red','orange','yellow','gray','green','blue','purple'];
+			const saleList = [
+				{'img':'ico.png','name':'黄一','uid':1,'secs':100000000},
+				{'img':'ico.png','name':'周二','uid':2,'secs':100000000},
+				{'img':'ico.png','name':'张三','uid':3,'secs':100000000},
+				{'img':'ico.png','name':'李四','uid':4,'secs':100000000},
+				{'img':'ico.png','name':'王五','uid':5,'secs':100000000},
+				{'img':'ico.png','name':'吴六','uid':6,'secs':100000000},
+				{'img':'ico.png','name':'小七','uid':7,'secs':100000000},
+				{'img':'ico.png','name':'王8','uid':4,'secs':100000000},
+				{'img':'ico.png','name':'胡九','uid':5,'secs':100000000},
+				{'img':'ico.png','name':'仝十','uid':6,'secs':100000000},
+				{'img':'ico.png','name':'十一','uid':7,'secs':100000000},
+				{'img':'ico.png','name':'十二','uid':4,'secs':100000000},
+				{'img':'ico.png','name':'十三','uid':5,'secs':100000000},
+				{'img':'ico.png','name':'十四','uid':6,'secs':100000000},
+				{'img':'ico.png','name':'十五','uid':7,'secs':100000000},
+			];
+
+
+
+			$(function(){
+//return;
+setInterval(()=>{
+	$('.secs').each(function(){
+		var log = +new Date;
+		$(this).attr('ref',log);
+		$(this).html(log + $(this).attr('ref'));
+	});
+},100);
+
+
+
+
+
+let getSaleListGroup = (index,length,saleList)=>{
+	
+	index = (index==null)?0:index%saleList.length;
+	length  = (length==null||length==0)?saleList.length:length;
+	let itemTemplate = '<span ><img src="xx"/>xxx</span><span class="secs" ref="xxxx">还有多少时间</span><span ><span class="icon-discount-remoney">立即购买</span></span>';
+	let template = '<span class="detail-buyer-list-roll-item border-bottom-solid-line">xx</span>';
+	let roll_list_animation_span = '<span class ="roll_list_animation">xx</span>';
+	roll_list_animation_span = (saleList.length>2)?roll_list_animation_span:roll_list_animation_span.replace('roll_list_animation','');
+
+	let itemGroup='',result='';
+	for(var i = 0;i<length;i++){
+		let item = itemTemplate.replace('xx',saleList[index]['img']).replace('xxx',saleList[index]['name']).replace('xxxx',saleList[index]['secs']);
+		if(i%2==1||length==1){
+			itemGroup = itemGroup + template.replace('xx',item).replace('border-bottom-solid-line','');
+		}else{
+			itemGroup = itemGroup + template.replace('xx',item);
+		}
+		if(i%2==1||length==1){
+			result = result + roll_list_animation_span.replace('xx',itemGroup);
+			itemGroup='';
+		}
+		index = (1+index)%saleList.length
+	}
+	return result;
+};
+if(saleList.length<3){
+
+	$('.detail-buyer-list-roll').empty().html(getSaleListGroup(0,0,saleList));
+}else{
+	var idx = 4;
+	let result = getSaleListGroup(0,4,saleList);
+	$('.detail-buyer-list-roll').empty().html(result);
+
+	var f = 0;
+
+	$('.detail-buyer-list-roll > .roll_list_animation:last-child').on('animationiteration webkitAnimationIteration',(e)=>{
+			
+			let result = getSaleListGroup(idx,2,saleList);
+			idx += 2;
+
+			result = result.replace('<span class ="roll_list_animation">','').replace(/<\/span>$/i,'');			
+			let lastChild = $('.detail-buyer-list-roll > .roll_list_animation:last-child').html();
+			
+			$('.detail-buyer-list-roll > .roll_list_animation:first-child').html(lastChild);
+			$('.detail-buyer-list-roll > .roll_list_animation:last-child').html(result);			
+						
+	})
+}
+
+
+	
+	
+			})
+
+		</script>
+		<div class="detail-prod-comment">
+			<div class="detail-prod-comment-title">商品评价(234)</div>
+			<div class="detail-prod-comment-content">
+				<span class="detail-prod-comment-header"><img src="ico.png"/>小乌龟</span>
+				<span class="detail-prod-comment-msg">商品评价商品评价商品评价商品评价商品评价商品评价商品评价商品评价商品评价商品评价商品评价商品评价商品评价商品评价商品评价商品评价商品评价商品评价商品评价</span>
+			</div>
+			<div class="detail-prod-comment-content">
+				<span class="detail-prod-comment-header"><img src="ico.png"/>小乌龟</span>
+				<span class="detail-prod-comment-msg">商品评价商品评价商品评价商品评价</span>
+			</div>
+		</div>
+		<div class="detail-seller-replys">
+			<span class="detail-seller-replys-title">卖家客服答疑(123)</span>
+			<span class="detail-seller-replys-content">
+				<span class="detail-seller-reply">
+					<span class="detail-seller-reply-qs">
+						<img src="ico.png"/>亲，什么快递？
+					</span>
+					<span class="detail-seller-reply-asks">
+						348人同问
+					</span>
+				</span>
+				<span class="detail-seller-reply">
+					<span class="detail-seller-reply-qs">
+						<img src="ico.png"/>这个保质期多久
+					</span>
+					<span class="detail-seller-reply-asks">
+						12人同问
+					</span>
+				</span>
+			</span>
+		</div>
+		<div class="detail-shop-info">
+			<span class="detail-shop-bar">
+				<span class="detail-shop-icon">
+					<img src="ico.png" />
+				</span>
+				<span class="detail-shop-middle-info">
+					<span class="detail-shop-name">聚雅居灯饰</span>
+					<span class="detail-shop-nums">商口数量:xx件 已售: xx万件</span>
+				</span>
+				<span class="detail-shop-btn">
+					进店逛逛
+				</span>
+			</span>
+			<span class="detail-shop-promise">
+				<span class="detail-shop-promise1">描述相符 ‧ 高</span>
+				<span class="detail-shop-promise2">服务态度 ‧ 高</span>
+				<span class="detail-shop-promise3">物流服务 ‧ 高</span>
+			</span>
+			<span class="detail-shop-prods">
+			</span>
+		</div>
+		<div class="detail-prod-detail">
+			<div class="detail-prod-detail-title">商品详情</div>
+			<div class="detail-prod-detail-scale">商品规格</div>
+			<div class="detail-prod-detail-content">商品详情内容-
+商品详情内容-
+商品详情内容-
+商品详情内容-
+商品详情内容-
+商品详情内容-
+商品详情内容-
+商品详情内容-
+			</div>
+		</div>
+	</section>
+
+
+	<footer class="g-footer">
+		<ul id="footer-ul" >
+			<li>
+					首页
+			</li><li>
+					推荐
+			</li><li>
+					搜索
+			</li><li>
+					聊天
+			</li><li>
+					个人中心
+			</li>
+		</ul>
+	</footer>
+
+</div>
+
+</body>
+</html>

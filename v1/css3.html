@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<title></title>
+
+
+	<style type="text/css">
+		.transition-span{
+		display: block;
+			cursor: pointer;
+			width: 100px;
+			height: 100px;
+			background: green;
+			border-radius: 0;
+			transition: background 3s linear,border-radius 3s ease-in;
+			-webkit-transition: background 3s linear,border-radius 3s ease-in;
+		}
+		.transition-span:hover{
+			background: red;
+			border-radius:70%;
+		}
+
+		.transform-scale,.transform-translate,.transform-rotate,.transform-skew{
+		
+			display: block;
+			cursor: pointer;
+			width: 100px;
+			height: 100px;
+			background: green;
+		}
+		.transform-scale:hover{
+			/*transform: scale(2);*/
+			/*transform: scale(.5);*/
+			/*transform: scaleX(2);*/
+			/*transform: scaleY(2);*/
+			transform: scale(2,4);
+		}
+
+		.transform-translate:hover{
+			transform: translate(10px,0px);
+		}
+		.transform-rotate:hover{
+			/*transform: rotate(45deg);*/
+			/*transform: rotate(-50deg);*/
+			/*transform: rotateX(-50deg);*/
+			/*transform: rotateY(-50deg);*/
+			transform: rotateZ(-50deg);
+		}
+		.transform-skew:hover{
+			transform: skew(45deg,70deg);
+		}
+		
+	</style>
+</head>
+<body>
+<!-- <h4>渐变</h4>
+<span class="transition-span">鼠标划过我，边框变圆/背景变红（渐变过渡）</span>
+<br/>
+<h4>变形</h4>
+<span class="transform-scale">扩大一倍/缩小一倍/x扩大一倍/x扩大一倍y扩大两倍/</span>
+<br/>
+<span class="transform-translate">x平移y平移/x平移/y平移</span>
+
+<span class="transform-rotate">旋转45度/负50度</span>
+<span class="transform-skew">剪切水平45度，垂直70度</span>
+ -->
+<h4>动画</h4>
+<hr style="color:red" />
+<h4></h4>
+<div  style="float:right;width: 100%;">
+<span class="g-icons">
+	<img src="ico.png" />
+	<img src="0.jpg" />
+	<img src="ico.png" />
+</span>
+
+</div>
+<style type="text/css">
+	.g-icons{
+		position: absolute;
+		width: 3rem;
+		height: 1.4rem;
+		float: left;
+	}
+	.g-icons img{
+		position: absolute;
+		margin: 0rem;
+		width: 1.2rem;
+		height: 1.2rem;
+		border:.1rem solid white;
+		border-radius: 50%;
+		float:left;
+	}
+	.g-icons img:nth-child(2){
+		left:.6rem;
+	}
+	.g-icons img:nth-child(3){
+		left:1.2rem;
+	}
+
+</style>
+
+
+
+
+<body>
+</html>

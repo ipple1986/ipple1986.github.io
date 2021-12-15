@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<title></title>
+
+	<!--[if lt IE 9]>
+  		<script src="http://cdn.static.runoob.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+	<style type="text/css">
+		html {
+		font-size: 16px;	
+		background: #eee;		
+		}
+		body{
+
+			padding: 0px;
+			margin: 0px;
+		}
+		.g-container {
+			width: 100%;
+			max-width: 40.625rem;
+			background-color:#ff0000;
+			margin:auto;
+			height:100%;
+			min-height: 100px;
+			padding-bottom: 2rem;
+			border: 0.1px solid pink;
+
+		}
+		.g-footer,.g-header {
+			width: 100%;
+			max-width: 40.625rem;
+			position: fixed;
+		}
+		.g-footer{
+			bottom: 0px;
+			height:2rem;
+			line-height: 2rem;
+			background: pink;
+		}
+		.g-header{
+			top:0px;
+			height:2rem;
+			line-height: 2rem;
+			background: pink;
+		}
+
+		.g-prod-search{
+			width: 100%;
+			max-width: 40.625rem;
+			margin-top:2rem;
+			margin-bottom: 2rem: 
+			height:100%;
+			overflow-x: hidden;
+			overflow-y:auto;
+			scroll: none;
+		}
+		.g-prod-search aside{
+			width: 100%;
+			max-width: 40.625rem;
+		}
+		.g-prod-search .g-prod-container{
+			display: flex;
+			-webkit-display:flex;
+			flex-direction: row;
+			
+			align-items: center;
+			flex-wrap: wrap;
+			
+			width: 100%;
+			max-width: 40.625rem;
+			background: #eee;
+			padding: 0rem;
+
+		
+		}
+		.g-prod-search .g-prod-item{
+			width: 49%;
+			max-width: 20.3125rem;
+			margin: 0.5%;
+			background: white;
+		}
+		.g-prod-search .g-prod-item .g-prod-item-title{
+			overflow: hidden;
+			padding: 0rem;
+			margin: 0rem;
+			vertical-align: middle;
+			width: 98%;
+			margin: 1%;
+			height: 1.2rem;
+			line-height: 1.2rem;
+			font-size:0.9rem;
+		}
+		.g-prod-search .g-prod-item .g-prod-item-title img{
+			
+			height: 100%;
+			padding: 0rem;
+			margin: 0rem;
+			border:0rem;
+			vertical-align: middle;
+		}
+		.g-prod-item-ext{
+			width: 98%;
+			display: inline;
+			height: 1.2rem;
+			line-height: 1.2rem;
+			margin: 1%;
+			overflow: hidden;
+		}
+		.g-prod-item-bar {
+			width: 98%;
+			display: inline;
+			height: 1.2rem;
+			line-height: 1.2rem;
+			margin: 1%;
+			float: left;
+			overflow: hidden;
+		}
+.g-prod-item-bar .g-prod-item-bar-icons{
+/*	text-align: right;
+	
+	
+	*/
+	position:relative;
+	width:2.4rem;
+	float: right;
+	margin-right: 0.8rem;
+}
+.g-prod-item-bar .g-prod-item-bar-icons img{
+	padding:0;
+	margin: 0;
+	border: 0;
+	display: inline-flex;
+	float: right;
+	-webkit-clip-path: circle(50% at 50% 50%);
+	-ms-clip-path: circle(50% at 50% 50%);
+	-o-clip-path: circle(50% at 50% 50%);
+	-moz-clip-path: circle(50% at 50% 50%);
+	clip-path: circle(50% at 50% 50%);
+}
+
+		.g-color-red{
+			color: #ff0000;
+			font-weight: bold;
+		}
+		.g-color-gray{
+			color:gray;
+			font-size: 0.8rem;
+			font-family: 'none'
+		}
+
+	</style>
+</head>
+<body>
+<div class="g-container">
+	<header class="g-header">
+		header
+	</header>
+
+	<section class="g-prod-search">
+		<aside>
+			共xxxx
+		</aside>
+		<article class="g-prod-container">		
+			
+			<section class="g-prod-item" >
+				<img class="g-prod-item-img" src="http://t00img.yangkeduo.com/goods/images/2019-08-22/7b9e44d6-4d88-4a0d-83c8-11d3e917b500.jpg?imageMogr2/sharpen/1%7CimageView2/2/w/400/q/70/format/webp" width="100%" height="100%"/>
+				<div class="g-prod-item-title" > 
+					<img   src="http://t13img.yangkeduo.com/cart/2019-09-15/9f3884a55e779dd0e888defaf804be1c.png?imageMogr2/sharpen/1%7CimageView2/2/w/1300/q/70/format/webp"/>	
+					一颗多色嫁接玫瑰花苗四季开花客厅
+				</div>
+				<div class="g-prod-item-bar">
+					<span class="g-color-red" ><font size="2rem">￥</font>1000.8</span> 
+					<span class="g-color-gray" >已售xxx件</span>
+					<span class="g-prod-item-bar-icons">
+						<img  src="../ico.jpg" width="50%" height="100%" style="padding-right: 0.6rem" />
+						<div style="position: absolute;height: 100%">
+							<img  src="../0.jpg" width="50%" height="100%"  />
+						</div>
+					</span>
+				</div>
+			</section>
+
+			<section class="g-prod-item" >
+				<img class="g-prod-item-img" src="http://t00img.yangkeduo.com/goods/images/2019-08-22/7b9e44d6-4d88-4a0d-83c8-11d3e917b500.jpg?imageMogr2/sharpen/1%7CimageView2/2/w/400/q/70/format/webp" width="100%" height="100%"/>
+				<div class="g-prod-item-title" > 
+					<img   src="http://t13img.yangkeduo.com/cart/2019-09-15/9f3884a55e779dd0e888defaf804be1c.png?imageMogr2/sharpen/1%7CimageView2/2/w/1300/q/70/format/webp"/>	
+					一颗多色嫁接玫瑰花苗四季开花客厅
+				</div>
+				<div class="g-prod-item-bar">
+					<span class="g-color-red"><font size="2rem">￥</font>10.8</span> <span class="g-color-gray">已售xxx件</span>
+				</div>
+			</section>
+
+			<section class="g-prod-item" >
+				<img class="g-prod-item-img" src="http://t00img.yangkeduo.com/goods/images/2019-08-22/7b9e44d6-4d88-4a0d-83c8-11d3e917b500.jpg?imageMogr2/sharpen/1%7CimageView2/2/w/400/q/70/format/webp" width="100%" height="100%"/>
+				<div class="g-prod-item-title" > 
+					<img   src="http://t13img.yangkeduo.com/cart/2019-09-15/9f3884a55e779dd0e888defaf804be1c.png?imageMogr2/sharpen/1%7CimageView2/2/w/1300/q/70/format/webp"/>	
+					一颗多色嫁接玫瑰花苗四季开花客厅
+				</div>
+				<div class="g-prod-item-bar">
+					<span class="g-color-red"><font size="2rem">￥</font>10.8</span> <span class="g-color-gray">已售xxx件</span>
+				</div>
+			</section>
+
+			<section class="g-prod-item" >
+				<img class="g-prod-item-img" src="http://t00img.yangkeduo.com/goods/images/2019-08-22/7b9e44d6-4d88-4a0d-83c8-11d3e917b500.jpg?imageMogr2/sharpen/1%7CimageView2/2/w/400/q/70/format/webp" width="100%" height="100%"/>
+				<div class="g-prod-item-title" > 
+					<img   src="http://t13img.yangkeduo.com/cart/2019-09-15/9f3884a55e779dd0e888defaf804be1c.png?imageMogr2/sharpen/1%7CimageView2/2/w/1300/q/70/format/webp"/>	
+					一颗多色嫁接玫瑰花苗四季开花客厅
+				</div>
+				<div class="g-prod-item-bar">
+					<span class="g-color-red"><font size="2rem">￥</font>10.8</span> <span class="g-color-gray">已售xxx件</span>
+				</div>
+			</section>
+
+			<section class="g-prod-item" >
+				<img class="g-prod-item-img" src="http://t00img.yangkeduo.com/goods/images/2019-08-22/7b9e44d6-4d88-4a0d-83c8-11d3e917b500.jpg?imageMogr2/sharpen/1%7CimageView2/2/w/400/q/70/format/webp" width="100%" height="100%"/>
+				<div class="g-prod-item-title" > 
+					<img   src="http://t13img.yangkeduo.com/cart/2019-09-15/9f3884a55e779dd0e888defaf804be1c.png?imageMogr2/sharpen/1%7CimageView2/2/w/1300/q/70/format/webp"/>	
+					一颗多色嫁接玫瑰花苗四季开花客厅
+				</div>
+				<div class="g-prod-item-bar">
+					<span class="g-color-red"><font size="2rem">￥</font>10.8</span> <span class="g-color-gray">已售xxx件</span>
+				</div>
+			</section>
+
+	
+			<section class="g-prod-item" >
+				<img class="g-prod-item-img" src="http://t00img.yangkeduo.com/goods/images/2019-08-22/7b9e44d6-4d88-4a0d-83c8-11d3e917b500.jpg?imageMogr2/sharpen/1%7CimageView2/2/w/400/q/70/format/webp" width="100%" height="100%"/>
+				<div class="g-prod-item-title" > 
+					<img   src="http://t13img.yangkeduo.com/cart/2019-09-15/9f3884a55e779dd0e888defaf804be1c.png?imageMogr2/sharpen/1%7CimageView2/2/w/1300/q/70/format/webp"/>	
+					一颗多色嫁接玫瑰花苗四季开花客厅
+				</div>
+				<div class="g-prod-item-bar">
+					<span class="g-color-red"><font size="2rem">￥</font>10.8</span> <span class="g-color-gray">已售xxx件</span>
+				</div>
+			</section>
+
+			<section class="g-prod-item" >
+				<img class="g-prod-item-img" src="http://t00img.yangkeduo.com/goods/images/2019-08-22/7b9e44d6-4d88-4a0d-83c8-11d3e917b500.jpg?imageMogr2/sharpen/1%7CimageView2/2/w/400/q/70/format/webp" width="100%" height="100%"/>
+				<div class="g-prod-item-title" > 
+					<img   src="http://t13img.yangkeduo.com/cart/2019-09-15/9f3884a55e779dd0e888defaf804be1c.png?imageMogr2/sharpen/1%7CimageView2/2/w/1300/q/70/format/webp"/>	
+					一颗多色嫁接玫瑰花苗四季开花客厅
+				</div>
+				<div class="g-prod-item-bar">
+					<span class="g-color-red"><font size="2rem">￥</font>10.8</span> <span class="g-color-gray">已售xxx件</span>
+				</div>
+			</section>						
+			
+
+		</article>
+	</section>
+
+
+	<footer class="g-footer">
+		footer
+	</footer>
+
+</div>
+
+</body>
+</html>
