@@ -1,34 +1,280 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post-collapse.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
 
-{% block title %}{{ __('title.category') }}: {{ page.category }} | {{ title }}{% endblock %}
+    
 
-{% block content %}
+    
 
-  {######################}
-  {### CATEGORY BLOCK ###}
-  {######################}
-  <div class="post-block category">
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <{%- if theme.seo %}h2{% else %}h1{%- endif %} class="collection-header">{#
-        #}{{ page.category }}{#
-        #}<small>{{ __('title.category') }}</small>
-        </{%- if theme.seo %}h2{% else %}h1{%- endif %}>
-      </div>
+    <title>Category: Python | Jim&#39;s Personal Blog</title>
+    <meta name="author" content="Jim" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="梅花香自苦寒来" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
-      {{ post_template.render(page.posts) }}
+    
+    <link rel="alternate" href="/atom.xml" title="Jim&#39;s Personal Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--[if lt IE 9]><style type="text/css">.nav-inner {top:0;}.author-meta {position:static;top:0;}.search-form {height:36px;}</style><script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">Jim&#39;s Personal Blog</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
     </div>
-  </div>
-  {##########################}
-  {### END CATEGORY BLOCK ###}
-  {##########################}
 
-  {% include '_partials/pagination.swig' %}
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/programingLanguage">
+                <span class="nav-text">编程语言</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/indexSearch">
+                <span class="nav-text">索引检索</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/messageQueue">
+                <span class="nav-text">消息队列</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/cache">
+                <span class="nav-text">数据缓存</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/storage">
+                <span class="nav-text">数据存储</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
 
-{% endblock %}
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://ipple1986.github.io"></form>
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+        
+        
+
+        
+        <div class="author-meta">
+            
+            <div class="author-avatar">
+                <a href="/">
+                    <img src="/images/avatar.jpg" title="Jim">
+                </a>
+            </div>
+            
+            <div class="author-name">Jim</div>
+            <div class="author-work">Software Engineer</div>
+            <div class="author-location">
+                <i class="icon-location vm"></i>
+                <span class="vm">Guangzhou, China</span>
+            </div>
+            
+            <div class="author-thread-wrap">
+                <div class="author-threads clearfix">
+                    
+                        <a class="thread-item" href="https://github.com/ipple1986" target="_blank" rel="noopener">
+                            <!-- Generated by IcoMoon.io -->
+<svg viewBox="0 0 1024 1024" width="38" height="38" fill="currentColor">
+<path d="M512 32.12c-265.004 0-479.88 220.23-479.88 492.090 0 217.446 137.536 401.684 328.202 466.81 23.994 4.498 32.778-10.712 32.778-23.78 0-11.782-0.428-42.632-0.642-83.764-133.466 29.778-161.744-65.984-161.744-65.984-21.852-56.772-53.344-71.982-53.344-71.982-43.49-30.636 3.214-29.992 3.214-29.992 48.202 3.428 73.482 50.772 73.482 50.772 42.846 75.196 112.258 53.558 139.68 40.918 4.284-31.706 16.71-53.558 30.42-65.77-106.474-12.426-218.516-54.63-218.516-243.152 0-53.772 18.638-97.69 49.274-131.966-4.928-12.426-21.424-62.556 4.714-130.252 0 0 40.276-13.282 131.966 50.344 38.348-10.926 79.266-16.282 120.184-16.496 40.704 0.214 81.836 5.57 120.184 16.496 91.692-63.626 131.752-50.344 131.752-50.344 26.136 67.698 9.64 117.828 4.714 130.252 30.636 34.492 49.274 78.408 49.274 131.966 0 188.952-112.258 230.514-219.16 242.724 17.138 15.21 32.564 45.202 32.564 91.048 0 65.77-0.642 118.898-0.642 134.966 0 13.068 8.57 28.492 32.992 23.566 191.094-64.912 328.418-249.152 328.418-466.382 0-271.86-214.874-492.090-479.88-492.090z"></path>
+</svg>
+
+                        </a>
+                    
+                        <a class="thread-item" href="mailto:ipple1986@gmail.com" target="_blank" rel="noopener">
+                            <!-- Generated by IcoMoon.io -->
+<svg viewBox="0 0 1024 1024" width="38" height="38" fill="currentColor">
+<path d="M512 0a512 512 0 1 0 0 1024A512 512 0 0 0 512 0zM256 256h512c9.152 0 17.984 1.984 26.176 5.632L512 590.784 229.824 261.632A62.848 62.848 0 0 1 256 256z m-64 448V320l0.128-4.032 187.648 218.944-185.6 185.6A61.888 61.888 0 0 1 192 704z m576 64H256c-5.632 0-11.2-0.768-16.512-2.176L421.632 583.68l90.432 105.472L602.496 583.68l182.144 182.144a61.888 61.888 0 0 1-16.512 2.176z m64-64c0 5.632-0.768 11.2-2.176 16.512l-185.6-185.6 187.648-218.944L832 320v384z"></path>
+</svg>
+
+                        </a>
+                    
+                        <a class="thread-item" href="https://twitter.com/" target="_blank" rel="noopener">
+                            <!-- Generated by IcoMoon.io -->
+<svg viewBox="0 0 1024 1024" width="38" height="38" fill="currentColor">
+<path d="M512.029 31.011c-263.32 0-476.784 213.502-476.784 476.784 0 263.32 213.464 476.743 476.784 476.743s476.743-213.424 476.743-476.743c0-263.282-213.444-476.784-476.743-476.784zM752.193 411.663c0.251 5.151 0.349 10.319 0.349 15.548 0 158.786-120.856 341.85-341.85 341.85-67.844 0-131.021-19.884-184.188-53.961 9.41 1.104 18.955 1.665 28.656 1.665 56.305 0 108.115-19.208 149.221-51.425-52.567-0.987-96.925-35.741-112.22-83.468 7.32 1.433 14.85 2.149 22.595 2.149 10.959 0 21.569-1.433 31.656-4.201-54.987-11.035-96.402-59.634-96.402-117.796 0-0.524 0-1.025 0.020-1.549 16.186 9.003 34.716 14.404 54.427 15.044-32.258-21.587-53.458-58.317-53.458-100.023 0-22.015 5.925-42.673 16.264-60.408 59.266 72.683 147.807 120.527 247.676 125.521-2.053-8.77-3.118-17.968-3.118-27.378 0-66.333 53.787-120.14 120.158-120.14 34.561 0 65.771 14.599 87.69 37.93 27.378-5.363 53.091-15.393 76.305-29.16-9.003 28.074-28.036 51.618-52.858 66.47 24.338-2.903 47.495-9.37 69.024-18.917-16.070 24.144-36.459 45.306-59.945 62.248z"></path>
+</svg>
+
+                        </a>
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/1970/01/01/ebooks/">使用Python Scrapy爬取allitebooks.org数据</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://ipple1986.github.io/categories/Python/index.html">
+    
+    <i class="icon-calendar vm"></i>
+    
+    <time class="vm" datetime="1970-01-01T00:00:00.000Z" itemprop="datePublished">1970-01-01</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag vm"></i>
+    <a class="article-tag-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <ul>
+<li>A.安装pip/scrapy</li>
+<li>B.创建项目/编写爬虫逻辑</li>
+<li>C.解决301永久重定向问题</li>
+</ul>
+<h3 id="A-安装pip-scrapy"><a href="#A-安装pip-scrapy" class="headerlink" title="A.安装pip/scrapy"></a>A.安装pip/scrapy</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sudo apt-get install python-pip</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sudo pip install scrapy</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="B-创建项目-编写爬虫逻辑"><a href="#B-创建项目-编写爬虫逻辑" class="headerlink" title="B.创建项目/编写爬虫逻辑"></a>B.创建项目/编写爬虫逻辑</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> scrapy startproject allitebooks crawls</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> crawls</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> scrapy genspider ebooks allitebooks.org</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> vi allitebooks/spiders/ebooks.py</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EbooksSpider</span>(<span class="params">scrapy.Spider</span>):</span></span><br><span class="line">    name = <span class="string">&#x27;ebooks&#x27;</span></span><br><span class="line">    allowed_domains = [<span class="string">&#x27;allitebooks.org&#x27;</span>]</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start_requests</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">yield</span> scrapy.Request(url=<span class="string">&#x27;http://allitebooks.org&#x27;</span>,callback=self.requestAllPages,dont_filter=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">requestAllPages</span>(<span class="params">self,response</span>):</span></span><br><span class="line">    	<span class="comment"># 获取总页数</span></span><br><span class="line">        nums = response.xpath(<span class="string">&quot;//div[@class=&#x27;pagination clearfix&#x27;]/a[last()]/text()&quot;</span>).get()</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&#x27;numbers of totalPages is %s&#x27;</span> % nums</span><br><span class="line">        <span class="comment"># 请求每个页面</span></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">int</span>(nums)+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">yield</span> scrapy.Request(<span class="string">&#x27;http://allitebooks.org/page/%d/&#x27;</span> % num,self.parsePage,<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parsePage</span>(<span class="params">self, response</span>):</span></span><br><span class="line">    	<span class="comment"># 获取每本书的链接入口</span></span><br><span class="line">        urls = response.xpath(<span class="string">&quot;//article/div/header/h2/a/@href&quot;</span>).getall()</span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">            <span class="keyword">yield</span> response.follow(url,self.parse)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">self, response</span>):</span></span><br><span class="line">    	<span class="comment"># 解析每本书的数据项，使用xpath</span></span><br><span class="line">        name = response.xpath(<span class="string">&quot;//h1/text()&quot;</span>).get()</span><br><span class="line">        img = response.xpath(<span class="string">&quot;//div[@class=&#x27;entry-meta clearfix&#x27;]/div[1]/a/img/@src&quot;</span>).get()</span><br><span class="line">        author = response.xpath(<span class="string">&quot;//div[@class=&#x27;entry-meta clearfix&#x27;]/div[2]/dl/dd[1]/a/text()&quot;</span>).get()</span><br><span class="line">        isbn = response.xpath(<span class="string">&quot;//div[@class=&#x27;entry-meta clearfix&#x27;]/div[2]/dl/dd[2]/text()&quot;</span>).get()</span><br><span class="line">        year = response.xpath(<span class="string">&quot;//div[@class=&#x27;entry-meta clearfix&#x27;]/div[2]/dl/dd[3]/text()&quot;</span>).get()</span><br><span class="line">        pages = response.xpath(<span class="string">&quot;//div[@class=&#x27;entry-meta clearfix&#x27;]/div[2]/dl/dd[4]/text()&quot;</span>).get()</span><br><span class="line">        lang = response.xpath(<span class="string">&quot;//div[@class=&#x27;entry-meta clearfix&#x27;]/div[2]/dl/dd[5]/text()&quot;</span>).get()</span><br><span class="line">        size = response.xpath(<span class="string">&quot;//div[@class=&#x27;entry-meta clearfix&#x27;]/div[2]/dl/dd[6]/text()&quot;</span>).get()</span><br><span class="line">        f0rmat = response.xpath(<span class="string">&quot;//div[@class=&#x27;entry-meta clearfix&#x27;]/div[2]/dl/dd[7]/text()&quot;</span>).get()</span><br><span class="line">        category = response.xpath(<span class="string">&quot;//div[@class=&#x27;entry-meta clearfix&#x27;]/div[2]/dl/dd[8]/a/text()&quot;</span>).get()</span><br><span class="line">        url = response.xpath(<span class="string">&quot;//footer[@class=&#x27;entry-footer clearfix&#x27;]/div/span[1]/a/@href&quot;</span>).get()</span><br><span class="line">        <span class="keyword">yield</span> &#123;<span class="string">&#x27;name&#x27;</span>:name,<span class="string">&#x27;img&#x27;</span>:img,<span class="string">&#x27;author&#x27;</span>:author,<span class="string">&#x27;isbn&#x27;</span>:isbn,<span class="string">&#x27;year&#x27;</span>:year,<span class="string">&#x27;pages&#x27;</span>:pages,<span class="string">&#x27;lang&#x27;</span>:lang,<span class="string">&#x27;size&#x27;</span>:size,<span class="string">&#x27;format&#x27;</span>:f0rmat,<span class="string">&#x27;category&#x27;</span>:category,<span class="string">&#x27;url&#x27;</span>:url&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> crawls //  [项目源码在我的github上](https://github.com/ipple1986/jim/tree/master/crawls <span class="string">&quot;项目地址&quot;</span>)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> scrapy crawl ebooks -o ebooks.json // 爬取网站数据</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="C-解决301永久重定向问题"><a href="#C-解决301永久重定向问题" class="headerlink" title="C.解决301永久重定向问题"></a>C.解决301永久重定向问题</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> scrawls/allitebooks</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> vi settings.py // 添加 HTTPERROR_ALLOWED_CODES = [301]</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy.Request(url,callback,dont_filter)第三个参数传True</span><br></pre></td></tr></table></figure>
+
+        
+    </section>
+</article>
+
+
+
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://unpkg.com/jquery@1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle('normal', slideDone);
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp('normal', slideDone);
+            }, 3000);
+        }
+
+        function slideDone() {
+            if (nodes.navInner.css('display') !== 'none') {
+                nodes.navInner.css('display', '');
+            }
+        }
+
+        $(window).on('resize', function() {
+            if ($(this).width() > 960) {
+                nodes.navInner.css('display', '');
+            }
+        });
+    });
+    </script>
+    
+
+</body>
+</html>

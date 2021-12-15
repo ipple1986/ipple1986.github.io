@@ -7,10 +7,10 @@
 
     
 
-    <title>Java构建工具【总结篇】 | Jim&#39;s Personal Blog</title>
+    <title>Category: JAVA | Jim&#39;s Personal Blog</title>
     <meta name="author" content="Jim" />
     <meta name="keywords" content="" />
-    <meta name="description" content="构建工具（本地仓库存储 与 远程仓库的全局配置）Maven 本地存储 与 远程仓库做镜像配置（提高下载速度）1234567891011121314&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;lt;settings xmlns=&amp;quot;http://maven.apache.org/SETTINGS/1.0.0&amp;quot;          xmlns:xsi=&amp;quot;http://www.w3.org/" />
+    <meta name="description" content="梅花香自苦寒来" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -56,7 +56,7 @@
                 <span class="nav-text">首页</span>
             </a>
         
-            <a class="nav-item" href="/categories/programingLanguage">
+            <a class="nav-item active" href="/categories/programingLanguage">
                 <span class="nav-text">编程语言</span>
             </a>
         
@@ -98,11 +98,54 @@
 
         
         
-        
-        
 
         
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%EF%BC%88%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%AD%98%E5%82%A8-%E4%B8%8E-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">构建工具（本地仓库存储 与 远程仓库的全局配置）</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Maven-%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8-%E4%B8%8E-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%81%9A%E9%95%9C%E5%83%8F%E9%85%8D%E7%BD%AE%EF%BC%88%E6%8F%90%E9%AB%98%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6%EF%BC%89"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">Maven 本地存储 与 远程仓库做镜像配置（提高下载速度）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Gradle-%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8-%E4%B8%8E-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">Gradle 本地存储 与 远程仓库 全局配置</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">2.</span> <span class="toc-text">构建工具 的生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Maven-%E4%B8%89%E4%B8%AA%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">2.1.</span> <span class="toc-text">Maven 三个生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E9%98%B6%E6%AE%B5"><span class="toc-number">2.1.0.1.</span> <span class="toc-text">默认阶段</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#clean%E6%B8%85%E7%90%86%E9%98%B6%E6%AE%B5"><span class="toc-number">2.1.1.</span> <span class="toc-text">clean清理阶段</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#site%E9%98%B6%E6%AE%B5%EF%BC%8C%E7%94%9F%E6%88%90%E6%96%87%E6%A1%A3"><span class="toc-number">2.1.1.1.</span> <span class="toc-text">site阶段，生成文档</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Gradle-%E4%B8%89%E4%B8%AA%E6%9E%84%E5%BB%BA%E9%98%B6%E6%AE%B5"><span class="toc-number">2.2.</span> <span class="toc-text">Gradle 三个构建阶段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7-%E6%8F%92%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">构建工具  插件的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Maven%E6%8F%92%E4%BB%B6%E4%B8%8E%E9%98%B6%E6%AE%B5%E7%BB%91%E5%AE%9A"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">Maven插件与阶段绑定</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Gradle%E6%8F%92%E4%BB%B6%E4%B8%8E%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%89%A7%E8%A1%8C"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">Gradle插件与任务的执行</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E6%9F%A5%E7%9C%8B%E4%BE%9D%E8%B5%96%E6%A0%91"><span class="toc-number">4.</span> <span class="toc-text">构建工具查看依赖树</span></a></li></ol>
+        <div class="author-meta">
+            
+            <div class="author-avatar">
+                <a href="/">
+                    <img src="/images/avatar.jpg" title="Jim">
+                </a>
+            </div>
+            
+            <div class="author-name">Jim</div>
+            <div class="author-work">Software Engineer</div>
+            <div class="author-location">
+                <i class="icon-location vm"></i>
+                <span class="vm">Guangzhou, China</span>
+            </div>
+            
+            <div class="author-thread-wrap">
+                <div class="author-threads clearfix">
+                    
+                        <a class="thread-item" href="https://github.com/ipple1986" target="_blank" rel="noopener">
+                            <!-- Generated by IcoMoon.io -->
+<svg viewBox="0 0 1024 1024" width="38" height="38" fill="currentColor">
+<path d="M512 32.12c-265.004 0-479.88 220.23-479.88 492.090 0 217.446 137.536 401.684 328.202 466.81 23.994 4.498 32.778-10.712 32.778-23.78 0-11.782-0.428-42.632-0.642-83.764-133.466 29.778-161.744-65.984-161.744-65.984-21.852-56.772-53.344-71.982-53.344-71.982-43.49-30.636 3.214-29.992 3.214-29.992 48.202 3.428 73.482 50.772 73.482 50.772 42.846 75.196 112.258 53.558 139.68 40.918 4.284-31.706 16.71-53.558 30.42-65.77-106.474-12.426-218.516-54.63-218.516-243.152 0-53.772 18.638-97.69 49.274-131.966-4.928-12.426-21.424-62.556 4.714-130.252 0 0 40.276-13.282 131.966 50.344 38.348-10.926 79.266-16.282 120.184-16.496 40.704 0.214 81.836 5.57 120.184 16.496 91.692-63.626 131.752-50.344 131.752-50.344 26.136 67.698 9.64 117.828 4.714 130.252 30.636 34.492 49.274 78.408 49.274 131.966 0 188.952-112.258 230.514-219.16 242.724 17.138 15.21 32.564 45.202 32.564 91.048 0 65.77-0.642 118.898-0.642 134.966 0 13.068 8.57 28.492 32.992 23.566 191.094-64.912 328.418-249.152 328.418-466.382 0-271.86-214.874-492.090-479.88-492.090z"></path>
+</svg>
+
+                        </a>
+                    
+                        <a class="thread-item" href="mailto:ipple1986@gmail.com" target="_blank" rel="noopener">
+                            <!-- Generated by IcoMoon.io -->
+<svg viewBox="0 0 1024 1024" width="38" height="38" fill="currentColor">
+<path d="M512 0a512 512 0 1 0 0 1024A512 512 0 0 0 512 0zM256 256h512c9.152 0 17.984 1.984 26.176 5.632L512 590.784 229.824 261.632A62.848 62.848 0 0 1 256 256z m-64 448V320l0.128-4.032 187.648 218.944-185.6 185.6A61.888 61.888 0 0 1 192 704z m576 64H256c-5.632 0-11.2-0.768-16.512-2.176L421.632 583.68l90.432 105.472L602.496 583.68l182.144 182.144a61.888 61.888 0 0 1-16.512 2.176z m64-64c0 5.632-0.768 11.2-2.176 16.512l-185.6-185.6 187.648-218.944L832 320v384z"></path>
+</svg>
+
+                        </a>
+                    
+                        <a class="thread-item" href="https://twitter.com/" target="_blank" rel="noopener">
+                            <!-- Generated by IcoMoon.io -->
+<svg viewBox="0 0 1024 1024" width="38" height="38" fill="currentColor">
+<path d="M512.029 31.011c-263.32 0-476.784 213.502-476.784 476.784 0 263.32 213.464 476.743 476.784 476.743s476.743-213.424 476.743-476.743c0-263.282-213.444-476.784-476.743-476.784zM752.193 411.663c0.251 5.151 0.349 10.319 0.349 15.548 0 158.786-120.856 341.85-341.85 341.85-67.844 0-131.021-19.884-184.188-53.961 9.41 1.104 18.955 1.665 28.656 1.665 56.305 0 108.115-19.208 149.221-51.425-52.567-0.987-96.925-35.741-112.22-83.468 7.32 1.433 14.85 2.149 22.595 2.149 10.959 0 21.569-1.433 31.656-4.201-54.987-11.035-96.402-59.634-96.402-117.796 0-0.524 0-1.025 0.020-1.549 16.186 9.003 34.716 14.404 54.427 15.044-32.258-21.587-53.458-58.317-53.458-100.023 0-22.015 5.925-42.673 16.264-60.408 59.266 72.683 147.807 120.527 247.676 125.521-2.053-8.77-3.118-17.968-3.118-27.378 0-66.333 53.787-120.14 120.158-120.14 34.561 0 65.771 14.599 87.69 37.93 27.378-5.363 53.091-15.393 76.305-29.16-9.003 28.074-28.036 51.618-52.858 66.47 24.338-2.903 47.495-9.37 69.024-18.917-16.070 24.144-36.459 45.306-59.945 62.248z"></path>
+</svg>
+
+                        </a>
+                    
+                </div>
+            </div>
+            
+        </div>
         
     </div>
 </aside>
@@ -111,16 +154,17 @@
 
         <div id="content" class="content">
             <div id="wrapper" class="wrapper" style="max-width: 800px">
-                <article class="article" itemscope itemprop="blogPost">
+                
+    <article class="article" itemscope itemprop="blogPost">
     
     <header class="article-header">
         
         <h1 itemprop="name">
-            Java构建工具【总结篇】
+            <a href="/1970/01/01/buildtool/">Java构建工具【总结篇】</a>
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="https://ipple1986.github.io/1970/01/01/buildtool/index.html">
+            <a class="article-date" href="https://ipple1986.github.io/categories/programingLanguage/JAVA/index.html">
     
     <i class="icon-calendar vm"></i>
     
@@ -205,11 +249,6 @@
 
 
 
-<a id="pagenext" href="/1970/01/01/keytool/" class="article-next" title="Keytool/Openssl使用场景与自签名Ca"><i class="icon-arrow-right"></i></a>
-
-
-<a id="pageprev" href="/1970/01/01/ebooks/" class="article-prev" title="使用Python Scrapy爬取allitebooks.org数据"><i class="icon-arrow-left"></i></a>
-
 
 
 
@@ -276,33 +315,6 @@
         });
     });
     </script>
-    
-        
-<script src="/js/scrollspy.min.js"></script>
-
-        <script type="text/javascript">
-        $(document.body).scrollspy({target: '#aside-inner'});
-
-        $(window).on('resize', function() {
-            var hw = $('#header').width();
-            var ww = $('#wrapper').width();
-            var space = ($(this).width() - hw - ww) / 2 / 2;
-
-            var pageprev = $('#pageprev');
-            var pagenext = $('#pagenext');
-            var avg = (pageprev.width() + pagenext.width()) / 2
-
-            if(space > avg) {
-                var len = space - avg / 2;
-                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
-                pageprev.css($.extend({left: hw + len}, styles));
-                pagenext.css($.extend({right: len}, styles));
-            } else {
-                pageprev.removeAttr('style');
-                pagenext.removeAttr('style');
-            }
-        }).trigger('resize');
-        </script>
     
 
 </body>
