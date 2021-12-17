@@ -7,10 +7,10 @@
 
     
 
-    <title>Keytool/Openssl使用场景与自签名Ca | Jim&#39;s Personal Blog</title>
+    <title>Category: security | Jim&#39;s Personal Blog</title>
     <meta name="author" content="Jim" />
     <meta name="keywords" content="" />
-    <meta name="description" content="A.keytool用法B.openssl用法C.实例：openssl+keytoolA.keytool用法查看keytool帮助1# keytool [-help]  1# keytool -genkey [-]help生成密钥/密钥对、存储密钥的库（不指定storetype时，默认jks类型）1# keytool -genkey/genkeypair -alias alias -keyalg RSA -keysize 1024 -validity 365 -keystore keystore." />
+    <meta name="description" content="梅花香自苦寒来" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -76,6 +76,10 @@
                 <span class="nav-text">存储</span>
             </a>
         
+            <a class="nav-item active" href="/categories/security">
+                <span class="nav-text">安全</span>
+            </a>
+        
             <a class="nav-item" href="/tags">
                 <span class="nav-text">标签</span>
             </a>
@@ -98,11 +102,54 @@
 
         
         
-        
-        
 
         
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#A-keytool%E7%94%A8%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">A.keytool用法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8Bkeytool%E5%B8%AE%E5%8A%A9"><span class="toc-number">1.0.1.</span> <span class="toc-text">查看keytool帮助</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5-%E5%AF%86%E9%92%A5%E5%AF%B9%E3%80%81%E5%AD%98%E5%82%A8%E5%AF%86%E9%92%A5%E7%9A%84%E5%BA%93%EF%BC%88%E4%B8%8D%E6%8C%87%E5%AE%9Astoretype%E6%97%B6%EF%BC%8C%E9%BB%98%E8%AE%A4jks%E7%B1%BB%E5%9E%8B%EF%BC%89"><span class="toc-number">1.0.2.</span> <span class="toc-text">生成密钥&#x2F;密钥对、存储密钥的库（不指定storetype时，默认jks类型）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%AF%86%E9%92%A5%E5%BA%93%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF"><span class="toc-number">1.0.3.</span> <span class="toc-text">查看密钥库中的信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%AF%86%E9%92%A5%E5%BA%93KS%E4%B8%AD%E7%9A%84%E6%9D%A1%E7%9B%AE"><span class="toc-number">1.0.4.</span> <span class="toc-text">修改密钥库KS中的条目</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BE%80%E5%AF%86%E9%92%A5%E5%BA%93KS%E4%B8%AD%E6%B7%BB%E5%8A%A0%E6%9D%A1%E7%9B%AEalias2"><span class="toc-number">1.0.5.</span> <span class="toc-text">往密钥库KS中添加条目alias2</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%AF%86%E9%92%A5%E5%BA%93KS%E4%B8%AD%E7%9A%84%E6%9D%A1%E7%9B%AEalias2"><span class="toc-number">1.0.6.</span> <span class="toc-text">删除密钥库KS中的条目alias2</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%9D%A1%E7%9B%AE%E5%8F%A3%E4%BB%A4-%E5%AF%86%E9%92%A5%E5%BA%93%E7%9A%84%E5%AF%86%E7%A0%81"><span class="toc-number">1.0.7.</span> <span class="toc-text">修改条目口令&#x2F;密钥库的密码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6%E8%AF%B7%E6%B1%82-%E4%B8%8E-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6"><span class="toc-number">1.0.8.</span> <span class="toc-text">生成证书请求 与 生成证书</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E8%AF%81%E4%B9%A6-KeyStore"><span class="toc-number">1.0.9.</span> <span class="toc-text">导入证书&#x2F;KeyStore</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%89%93%E5%8D%B0%E8%AF%81%E4%B9%A6%E8%AF%B7%E6%B1%82-%E8%AF%81%E4%B9%A6"><span class="toc-number">1.0.10.</span> <span class="toc-text">打印证书请求&#x2F;证书</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B-openssl%E7%94%A8%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">B.openssl用法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E6%89%BEopenssl%E5%91%BD%E4%BB%A4%E5%B8%AE%E5%8A%A9"><span class="toc-number">2.0.1.</span> <span class="toc-text">查找openssl命令帮助</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90RSA%E5%AF%86%E9%92%A5%E6%96%87%E4%BB%B6%EF%BC%88%E5%90%AB%E5%AF%86%E9%92%A5%E6%96%87%E4%BB%B6%E7%9A%84%E5%8A%A0%E5%AF%86%E5%AF%86%E7%A0%81passout%EF%BC%89"><span class="toc-number">2.0.2.</span> <span class="toc-text">生成RSA密钥文件（含密钥文件的加密密码passout）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90-%E8%AF%81%E4%B9%A6%E8%AF%B7%E6%B1%82%E6%96%87%E4%BB%B6CR%EF%BC%88%E4%BD%BF%E7%94%A8%E5%B7%B2%E5%AD%98%E5%9C%A8%E5%AF%86%E9%92%A5%E6%96%87%E4%BB%B6key-pem%EF%BC%89"><span class="toc-number">2.0.3.</span> <span class="toc-text">生成 证书请求文件CR（使用已存在密钥文件key.pem）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5%E6%96%87%E4%BB%B6-%E5%BF%85%E9%A1%BB%E6%8C%87%E5%AE%9A%E6%96%87%E4%BB%B6%E5%8A%A0%E5%AF%86%E5%AF%86%E9%92%A5passout-%EF%BC%8C%E5%90%8C%E6%97%B6%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6%E8%AF%B7%E6%B1%82%E6%96%87%E4%BB%B6%EF%BC%88%E4%B8%8A%E9%9D%A2%E4%B8%A4%E6%AD%A5%E7%BB%93%E5%90%88%EF%BC%89"><span class="toc-number">2.0.4.</span> <span class="toc-text">生成密钥文件(必须指定文件加密密钥passout)，同时生成证书请求文件（上面两步结合）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E8%87%AA%E7%AD%BE%E5%90%8D%E7%9A%84CA%E6%A0%B9%E8%AF%81%E4%B9%A6%EF%BC%88-X509%EF%BC%89"><span class="toc-number">2.0.5.</span> <span class="toc-text">生成自签名的CA根证书（-X509）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%94%9F%E6%88%90%E7%9A%84%E8%AF%81%E4%B9%A6%E8%AF%B7%E6%B1%82-%E8%AF%81%E4%B9%A6"><span class="toc-number">2.0.6.</span> <span class="toc-text">查看生成的证书请求&#x2F;证书</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C-%E5%AE%9E%E4%BE%8B%EF%BC%9A%E8%87%AA%E7%AD%BE%E5%8F%91CA-openssl-keytool"><span class="toc-number">3.</span> <span class="toc-text">C.实例：自签发CA(openssl+keytool)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90-%E5%AF%86%E9%92%A5%E6%96%87%E4%BB%B6-%E5%8A%A0%E5%AF%86%E5%AF%86%E9%92%A5-%E6%A0%B9%E8%AF%81%E4%B9%A6"><span class="toc-number">3.0.1.</span> <span class="toc-text">生成 密钥文件&#x2F;加密密钥&#x2F;根证书</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AFtruststore"><span class="toc-number">3.0.2.</span> <span class="toc-text">生成 服务器端truststore</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90-%E5%AE%A2%E6%88%B7%E7%AB%AF-%E5%AF%86%E9%92%A5%E5%AF%B9keypair-%E8%AF%81%E4%B9%A6%E8%AF%B7%E6%B1%82%E6%96%87%E4%BB%B6"><span class="toc-number">3.0.3.</span> <span class="toc-text">生成 客户端 密钥对keypair&#x2F;证书请求文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BACR%E6%96%87%E4%BB%B6%E7%AD%BE%E5%90%8D"><span class="toc-number">3.0.4.</span> <span class="toc-text">为CR文件签名</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B0%86CS%E6%96%87%E4%BB%B6%E8%A6%86%E7%9B%96keypair%EF%BC%8CCA%E6%A0%B9%E6%96%87%E4%BB%B6%E5%AF%BC%E5%85%A5%E6%9C%AC%E5%9C%B0%E5%BA%93local-jks%E4%B8%AD"><span class="toc-number">3.0.5.</span> <span class="toc-text">将CS文件覆盖keypair，CA根文件导入本地库local.jks中</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%99%84%EF%BC%9A%E5%B0%86%E6%9C%AC%E5%9C%B0jks%E8%BD%AC%E6%88%90pkcs12%E5%BA%93%E6%A0%BC%E5%BC%8F%EF%BC%8C%E5%90%8C%E6%97%B6%E5%88%86%E5%88%AB%E6%8F%90%E5%8F%96%E5%87%BAkey-cert"><span class="toc-number">3.0.6.</span> <span class="toc-text">附：将本地jks转成pkcs12库格式，同时分别提取出key&#x2F;cert</span></a></li></ol></li></ol></li></ol>
+        <div class="author-meta">
+            
+            <div class="author-avatar">
+                <a href="/">
+                    <img src="/images/avatar.jpg" title="Jim">
+                </a>
+            </div>
+            
+            <div class="author-name">Jim</div>
+            <div class="author-work">Software Engineer</div>
+            <div class="author-location">
+                <i class="icon-location vm"></i>
+                <span class="vm">Guangzhou, China</span>
+            </div>
+            
+            <div class="author-thread-wrap">
+                <div class="author-threads clearfix">
+                    
+                        <a class="thread-item" href="https://github.com/ipple1986" target="_blank" rel="noopener">
+                            <!-- Generated by IcoMoon.io -->
+<svg viewBox="0 0 1024 1024" width="38" height="38" fill="currentColor">
+<path d="M512 32.12c-265.004 0-479.88 220.23-479.88 492.090 0 217.446 137.536 401.684 328.202 466.81 23.994 4.498 32.778-10.712 32.778-23.78 0-11.782-0.428-42.632-0.642-83.764-133.466 29.778-161.744-65.984-161.744-65.984-21.852-56.772-53.344-71.982-53.344-71.982-43.49-30.636 3.214-29.992 3.214-29.992 48.202 3.428 73.482 50.772 73.482 50.772 42.846 75.196 112.258 53.558 139.68 40.918 4.284-31.706 16.71-53.558 30.42-65.77-106.474-12.426-218.516-54.63-218.516-243.152 0-53.772 18.638-97.69 49.274-131.966-4.928-12.426-21.424-62.556 4.714-130.252 0 0 40.276-13.282 131.966 50.344 38.348-10.926 79.266-16.282 120.184-16.496 40.704 0.214 81.836 5.57 120.184 16.496 91.692-63.626 131.752-50.344 131.752-50.344 26.136 67.698 9.64 117.828 4.714 130.252 30.636 34.492 49.274 78.408 49.274 131.966 0 188.952-112.258 230.514-219.16 242.724 17.138 15.21 32.564 45.202 32.564 91.048 0 65.77-0.642 118.898-0.642 134.966 0 13.068 8.57 28.492 32.992 23.566 191.094-64.912 328.418-249.152 328.418-466.382 0-271.86-214.874-492.090-479.88-492.090z"></path>
+</svg>
+
+                        </a>
+                    
+                        <a class="thread-item" href="mailto:ipple1986@gmail.com" target="_blank" rel="noopener">
+                            <!-- Generated by IcoMoon.io -->
+<svg viewBox="0 0 1024 1024" width="38" height="38" fill="currentColor">
+<path d="M512 0a512 512 0 1 0 0 1024A512 512 0 0 0 512 0zM256 256h512c9.152 0 17.984 1.984 26.176 5.632L512 590.784 229.824 261.632A62.848 62.848 0 0 1 256 256z m-64 448V320l0.128-4.032 187.648 218.944-185.6 185.6A61.888 61.888 0 0 1 192 704z m576 64H256c-5.632 0-11.2-0.768-16.512-2.176L421.632 583.68l90.432 105.472L602.496 583.68l182.144 182.144a61.888 61.888 0 0 1-16.512 2.176z m64-64c0 5.632-0.768 11.2-2.176 16.512l-185.6-185.6 187.648-218.944L832 320v384z"></path>
+</svg>
+
+                        </a>
+                    
+                        <a class="thread-item" href="https://twitter.com/" target="_blank" rel="noopener">
+                            <!-- Generated by IcoMoon.io -->
+<svg viewBox="0 0 1024 1024" width="38" height="38" fill="currentColor">
+<path d="M512.029 31.011c-263.32 0-476.784 213.502-476.784 476.784 0 263.32 213.464 476.743 476.784 476.743s476.743-213.424 476.743-476.743c0-263.282-213.444-476.784-476.743-476.784zM752.193 411.663c0.251 5.151 0.349 10.319 0.349 15.548 0 158.786-120.856 341.85-341.85 341.85-67.844 0-131.021-19.884-184.188-53.961 9.41 1.104 18.955 1.665 28.656 1.665 56.305 0 108.115-19.208 149.221-51.425-52.567-0.987-96.925-35.741-112.22-83.468 7.32 1.433 14.85 2.149 22.595 2.149 10.959 0 21.569-1.433 31.656-4.201-54.987-11.035-96.402-59.634-96.402-117.796 0-0.524 0-1.025 0.020-1.549 16.186 9.003 34.716 14.404 54.427 15.044-32.258-21.587-53.458-58.317-53.458-100.023 0-22.015 5.925-42.673 16.264-60.408 59.266 72.683 147.807 120.527 247.676 125.521-2.053-8.77-3.118-17.968-3.118-27.378 0-66.333 53.787-120.14 120.158-120.14 34.561 0 65.771 14.599 87.69 37.93 27.378-5.363 53.091-15.393 76.305-29.16-9.003 28.074-28.036 51.618-52.858 66.47 24.338-2.903 47.495-9.37 69.024-18.917-16.070 24.144-36.459 45.306-59.945 62.248z"></path>
+</svg>
+
+                        </a>
+                    
+                </div>
+            </div>
+            
+        </div>
         
     </div>
 </aside>
@@ -111,20 +158,67 @@
 
         <div id="content" class="content">
             <div id="wrapper" class="wrapper" style="max-width: 800px">
-                <article class="article" itemscope itemprop="blogPost">
+                
+    <article class="article" itemscope itemprop="blogPost">
     
     <header class="article-header">
         
         <h1 itemprop="name">
-            Keytool/Openssl使用场景与自签名Ca
+            <a href="/2021/05/21/%E7%BC%96%E8%A7%A3%E7%A0%81utf8-basee64-obfuscate/">编解码utf8/basee64/obfuscate</a>
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="https://ipple1986.github.io/1970/01/01/keytool/index.html">
+            <a class="article-date" href="https://ipple1986.github.io/categories/security/index.html">
     
     <i class="icon-calendar vm"></i>
     
-    <time class="vm" datetime="1970-01-01T00:00:00.000Z" itemprop="datePublished">1970-01-01</time>
+    <time class="vm" datetime="2021-05-21T12:42:52.000Z" itemprop="datePublished">2021-05-21</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag vm"></i>
+    <a class="article-tag-link" href="/tags/base64/" rel="tag">base64</a>, <a class="article-tag-link" href="/tags/obfuscate/" rel="tag">obfuscate</a>, <a class="article-tag-link" href="/tags/utf8/" rel="tag">utf8</a>, <a class="article-tag-link" href="/tags/%E7%BC%96%E8%A7%A3%E7%A0%81/" rel="tag">编解码</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h3 id="A-UTF8"><a href="#A-UTF8" class="headerlink" title="A.UTF8"></a>A.UTF8</h3><h5 id="UTF8编码"><a href="#UTF8编码" class="headerlink" title="UTF8编码"></a>UTF8编码</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> utf8=<span class="function">(<span class="params">str</span>)=&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> result=[];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;str.length;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(str.charCodeAt(i)&lt;=<span class="number">0x7F</span>)&#123;</span><br><span class="line">			result[result.length]=str.charCodeAt(i);</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(str.charCodeAt(i)&lt;=<span class="number">0x7FF</span>)&#123;</span><br><span class="line">			result[result.length]=<span class="number">0xC0</span> | (str.charCodeAt(i)&gt;&gt;<span class="number">6</span> &amp; <span class="number">0x1F</span>);</span><br><span class="line">			result[result.length]=<span class="number">0x80</span> | (str.charCodeAt(i) &amp; <span class="number">0x3F</span>);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			result[result.length]=<span class="number">0xE0</span> | (str.charCodeAt(i)&gt;&gt;<span class="number">12</span> &amp; <span class="number">0x0F</span>);</span><br><span class="line">			result[result.length]=<span class="number">0x80</span> | (str.charCodeAt(i)&gt;&gt;<span class="number">6</span> &amp; <span class="number">0x3F</span>);</span><br><span class="line">			result[result.length]=<span class="number">0x80</span> | (str.charCodeAt(i) &amp; <span class="number">0x3F</span>);			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h5 id="UTF8解码"><a href="#UTF8解码" class="headerlink" title="UTF8解码"></a>UTF8解码</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> utf8decode=<span class="function">(<span class="params">bytes</span>)=&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> result=<span class="string">&#x27;&#x27;</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;bytes.length;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>((bytes[i]&amp;<span class="number">0x80</span>)==<span class="number">0</span>)&#123;</span><br><span class="line">			result += <span class="built_in">String</span>.fromCharCode(bytes[i]);</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>((bytes[i]&amp;<span class="number">0xE0</span>)==<span class="number">0xC0</span>)&#123;</span><br><span class="line">			result += <span class="built_in">String</span>.fromCharCode(((bytes[i]&amp;<span class="number">0x1F</span>)&lt;&lt;<span class="number">6</span>)|(bytes[i+<span class="number">1</span>]&amp;<span class="number">0x3F</span>));</span><br><span class="line">			i+=<span class="number">1</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			result += <span class="built_in">String</span>.fromCharCode(((bytes[i]&amp;<span class="number">0x0F</span>)&lt;&lt;<span class="number">12</span>)|((bytes[i+<span class="number">1</span>]&amp;<span class="number">0x3F</span>)&lt;&lt;<span class="number">6</span>)|(bytes[i+<span class="number">2</span>]&amp;<span class="number">0x3F</span>));</span><br><span class="line">			i+=<span class="number">2</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="B-Base64"><a href="#B-Base64" class="headerlink" title="B.Base64"></a>B.Base64</h3><h5 id="Base64编码"><a href="#Base64编码" class="headerlink" title="Base64编码"></a>Base64编码</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> base64=<span class="function">(<span class="params">bytes</span>)=&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">const</span> alpha=<span class="string">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&quot;</span>.split(<span class="string">&quot;&quot;</span>);</span><br><span class="line">	<span class="keyword">var</span> result=<span class="string">&#x27;&#x27;</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;bytes.length;i+=<span class="number">3</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(i==(bytes.length-<span class="number">1</span>))&#123;</span><br><span class="line">			result+=alpha[bytes[i]&gt;&gt;&gt;<span class="number">2</span>&amp;<span class="number">0x3F</span>] + alpha[bytes[i]&lt;&lt;<span class="number">4</span>&amp;<span class="number">0x3F</span>] +<span class="string">&quot;==&quot;</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(i==(bytes.length-<span class="number">2</span>))&#123;</span><br><span class="line">			result+=alpha[bytes[i]&gt;&gt;&gt;<span class="number">2</span>&amp;<span class="number">0x3F</span>] + alpha[(bytes[i]&lt;&lt;<span class="number">4</span>|bytes[i+<span class="number">1</span>]&gt;&gt;&gt;<span class="number">4</span>)&amp;<span class="number">0x3F</span>] +alpha[bytes[i+<span class="number">1</span>]&lt;&lt;<span class="number">2</span>&amp;<span class="number">0x3F</span>] +<span class="string">&quot;=&quot;</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			result+=alpha[bytes[i]&gt;&gt;&gt;<span class="number">2</span>&amp;<span class="number">0x3F</span>] + alpha[(bytes[i]&lt;&lt;<span class="number">4</span>|bytes[i+<span class="number">1</span>]&gt;&gt;&gt;<span class="number">4</span>)&amp;<span class="number">0x3F</span>] + alpha[(bytes[i+<span class="number">1</span>]&lt;&lt;<span class="number">2</span>|bytes[i+<span class="number">2</span>]&gt;&gt;&gt;<span class="number">6</span>)&amp;<span class="number">0x3F</span>] +alpha[bytes[i+<span class="number">2</span>]&amp;<span class="number">0x3F</span>];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h5 id="Base64解码"><a href="#Base64解码" class="headerlink" title="Base64解码"></a>Base64解码</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> base64decode=<span class="function">(<span class="params">str</span>)=&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> result=[];</span><br><span class="line">	<span class="keyword">const</span> convertor=<span class="function"><span class="params">c</span>=&gt;</span>&#123;</span><br><span class="line">		<span class="keyword">var</span> cc=c.charCodeAt();</span><br><span class="line">		<span class="keyword">if</span>(cc&gt;=<span class="number">65</span>&amp;&amp;cc&lt;=<span class="number">90</span>)<span class="keyword">return</span> (cc-<span class="number">65</span>);</span><br><span class="line">		<span class="keyword">if</span>(cc&gt;=<span class="number">97</span>&amp;&amp;cc&lt;=<span class="number">122</span>)<span class="keyword">return</span> (cc-<span class="number">97</span>+<span class="number">26</span>);</span><br><span class="line">		<span class="keyword">if</span>(cc&gt;=<span class="number">48</span>&amp;&amp;cc&lt;=<span class="number">57</span>)<span class="keyword">return</span> (cc-<span class="number">48</span>+<span class="number">52</span>);</span><br><span class="line">		<span class="keyword">if</span>(cc==<span class="number">43</span>)<span class="keyword">return</span> <span class="number">62</span>;<span class="keyword">if</span>(cc==<span class="number">47</span>)<span class="keyword">return</span> <span class="number">63</span>;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;str.length;i+=<span class="number">4</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(str.charAt(i+<span class="number">2</span>)===<span class="string">&#x27;=&#x27;</span>)&#123;</span><br><span class="line">			result[result.length]= (convertor(str.charAt(i))&lt;&lt;<span class="number">2</span>|convertor(str.charAt(i+<span class="number">1</span>))&gt;&gt;&gt;<span class="number">4</span>)&amp;<span class="number">0xFF</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(str.charAt(i+<span class="number">3</span>)===<span class="string">&#x27;=&#x27;</span>)&#123;</span><br><span class="line">			result[result.length]= (convertor(str.charAt(i))&lt;&lt;<span class="number">2</span>|convertor(str.charAt(i+<span class="number">1</span>))&gt;&gt;&gt;<span class="number">4</span>)&amp;<span class="number">0xFF</span>;</span><br><span class="line">			result[result.length]= (convertor(str.charAt(i+<span class="number">1</span>))&lt;&lt;<span class="number">4</span>|convertor(str.charAt(i+<span class="number">2</span>))&gt;&gt;&gt;<span class="number">2</span>)&amp;<span class="number">0xFF</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			result[result.length]= (convertor(str.charAt(i))&lt;&lt;<span class="number">2</span>|convertor(str.charAt(i+<span class="number">1</span>))&gt;&gt;&gt;<span class="number">4</span>)&amp;<span class="number">0xFF</span>;</span><br><span class="line">			result[result.length]= (convertor(str.charAt(i+<span class="number">1</span>))&lt;&lt;<span class="number">4</span>|convertor(str.charAt(i+<span class="number">2</span>))&gt;&gt;&gt;<span class="number">2</span>)&amp;<span class="number">0xFF</span>;</span><br><span class="line">			result[result.length]= (convertor(str.charAt(i+<span class="number">2</span>))&lt;&lt;<span class="number">6</span>|convertor(str.charAt(i+<span class="number">3</span>)))&amp;<span class="number">0xFF</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="UTF8-Base64-编码解码"><a href="#UTF8-Base64-编码解码" class="headerlink" title="UTF8+Base64 编码解码"></a>UTF8+Base64 编码解码</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">utf8decode(base64decode(base64(utf8(<span class="string">&quot;汉字之美--烎垚莪龑莯--(**@&amp;&amp;#^@!，在于型、在于意、在于音，是我们文化自信的根源。可当你看到这些词：毰毸、飒纚、妙鬘、翩跹、棽俪......是不是突然觉得自己的语文对不起体育老师？&quot;</span>))));</span><br></pre></td></tr></table></figure>
+
+<h3 id="C-Obfuscate"><a href="#C-Obfuscate" class="headerlink" title="C.Obfuscate"></a>C.Obfuscate</h3><h5 id="Obfuscate编码"><a href="#Obfuscate编码" class="headerlink" title="Obfuscate编码"></a>Obfuscate编码</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obf=<span class="function"><span class="params">str</span>=&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(str==<span class="literal">null</span>||str===<span class="string">&#x27;&#x27;</span>)<span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">	<span class="keyword">var</span> result=<span class="string">&#x27;OBF:&#x27;</span>;</span><br><span class="line">	<span class="keyword">var</span> bytes=utf8(str);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;bytes.length;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(bytes[i]&gt;<span class="number">127</span>||bytes[bytes.length-i-<span class="number">1</span>]&gt;<span class="number">127</span>)&#123;</span><br><span class="line">			c=((bytes[i])&lt;&lt;<span class="number">8</span>) + bytes[bytes.length-i-<span class="number">1</span>]</span><br><span class="line">			result+=<span class="string">&#x27;U&#x27;</span>+(<span class="string">&#x27;0000&#x27;</span>+c.toString(<span class="number">36</span>)).slice(-<span class="number">4</span>);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			c=((<span class="number">127</span>+bytes[i]+bytes[bytes.length-i-<span class="number">1</span>])&lt;&lt;<span class="number">8</span>) + (<span class="number">127</span>+bytes[i]-bytes[bytes.length-i-<span class="number">1</span>]);</span><br><span class="line">			result+=(<span class="string">&#x27;0000&#x27;</span>+c.toString(<span class="number">36</span>)).slice(-<span class="number">4</span>);</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h5 id="Obfuscate解码"><a href="#Obfuscate解码" class="headerlink" title="Obfuscate解码"></a>Obfuscate解码</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obfdecode=<span class="function"><span class="params">str</span>=&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(str==<span class="literal">null</span>||!str.startsWith(<span class="string">&#x27;OBF:&#x27;</span>))<span class="keyword">return</span> str;</span><br><span class="line">	str=str.substr(<span class="number">4</span>);</span><br><span class="line">	<span class="keyword">var</span> bytes=[];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;str.length;i+=<span class="number">4</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(str.charAt(i)===<span class="string">&#x27;U&#x27;</span>)&#123;</span><br><span class="line">			i+=<span class="number">1</span>;</span><br><span class="line">			c=str.substring(i,i+<span class="number">4</span>);</span><br><span class="line">			t=<span class="built_in">parseInt</span>(c,<span class="number">36</span>);</span><br><span class="line">			bytes[bytes.length]=(t&gt;&gt;&gt;<span class="number">8</span>);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			c=str.substring(i,i+<span class="number">4</span>);</span><br><span class="line">			b=<span class="built_in">parseInt</span>(c,<span class="number">36</span>);</span><br><span class="line">			h=b&gt;&gt;&gt;<span class="number">8</span>;</span><br><span class="line">			l=b&amp;<span class="number">0xFF</span>;</span><br><span class="line">			bytes[bytes.length]=((h+l-<span class="number">254</span>)/<span class="number">2</span>) &amp; <span class="number">0xFF</span>;</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">return</span> utf8decode(bytes);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="UTF8-Obfuscate-编码解码"><a href="#UTF8-Obfuscate-编码解码" class="headerlink" title="UTF8+Obfuscate 编码解码"></a>UTF8+Obfuscate 编码解码</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obfdecode(obf(<span class="string">&#x27;1234abZAAS%$#()烎垚莪龑莯&amp;^%#@!&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+        
+    </section>
+</article>
+
+
+    <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            <a href="/2021/03/18/Keytool-Openssl%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8E%E8%87%AA%E7%AD%BE%E5%90%8DCa/">Keytool/Openssl使用场景与自签名Ca</a>
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://ipple1986.github.io/categories/security/index.html">
+    
+    <i class="icon-calendar vm"></i>
+    
+    <time class="vm" datetime="2021-03-18T10:32:42.000Z" itemprop="datePublished">2021-03-18</time>
 </a>
 
             
@@ -207,11 +301,6 @@
 
 
 
-<a id="pagenext" href="/1970/01/01/encdec/" class="article-next" title="编解码utf8/basee64/obfuscate"><i class="icon-arrow-right"></i></a>
-
-
-<a id="pageprev" href="/1970/01/01/buildtool/" class="article-prev" title="Java构建工具【总结篇】"><i class="icon-arrow-left"></i></a>
-
 
 
 
@@ -278,33 +367,6 @@
         });
     });
     </script>
-    
-        
-<script src="/js/scrollspy.min.js"></script>
-
-        <script type="text/javascript">
-        $(document.body).scrollspy({target: '#aside-inner'});
-
-        $(window).on('resize', function() {
-            var hw = $('#header').width();
-            var ww = $('#wrapper').width();
-            var space = ($(this).width() - hw - ww) / 2 / 2;
-
-            var pageprev = $('#pageprev');
-            var pagenext = $('#pagenext');
-            var avg = (pageprev.width() + pagenext.width()) / 2
-
-            if(space > avg) {
-                var len = space - avg / 2;
-                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
-                pageprev.css($.extend({left: hw + len}, styles));
-                pagenext.css($.extend({right: len}, styles));
-            } else {
-                pageprev.removeAttr('style');
-                pagenext.removeAttr('style');
-            }
-        }).trigger('resize');
-        </script>
     
 
 </body>

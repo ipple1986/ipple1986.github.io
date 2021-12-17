@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>Keytool/Openssl使用场景与自签名Ca | Jim&#39;s Personal Blog</title>
+    <meta name="author" content="Jim" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="A.keytool用法B.openssl用法C.实例：openssl+keytoolA.keytool用法查看keytool帮助1# keytool [-help]  1# keytool -genkey [-]help生成密钥/密钥对、存储密钥的库（不指定storetype时，默认jks类型）1# keytool -genkey/genkeypair -alias alias -keyalg RSA -keysize 1024 -validity 365 -keystore keystore." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="Jim&#39;s Personal Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--[if lt IE 9]><style type="text/css">.nav-inner {top:0;}.author-meta {position:static;top:0;}.search-form {height:36px;}</style><script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">Jim&#39;s Personal Blog</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/programingLanguage">
+                <span class="nav-text">编程</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/indexSearch">
+                <span class="nav-text">索引</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/messageQueue">
+                <span class="nav-text">队列</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/cache">
+                <span class="nav-text">缓存</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/storage">
+                <span class="nav-text">存储</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/security">
+                <span class="nav-text">安全</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://ipple1986.github.io"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#A-keytool%E7%94%A8%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">A.keytool用法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8Bkeytool%E5%B8%AE%E5%8A%A9"><span class="toc-number">1.0.1.</span> <span class="toc-text">查看keytool帮助</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5-%E5%AF%86%E9%92%A5%E5%AF%B9%E3%80%81%E5%AD%98%E5%82%A8%E5%AF%86%E9%92%A5%E7%9A%84%E5%BA%93%EF%BC%88%E4%B8%8D%E6%8C%87%E5%AE%9Astoretype%E6%97%B6%EF%BC%8C%E9%BB%98%E8%AE%A4jks%E7%B1%BB%E5%9E%8B%EF%BC%89"><span class="toc-number">1.0.2.</span> <span class="toc-text">生成密钥&#x2F;密钥对、存储密钥的库（不指定storetype时，默认jks类型）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%AF%86%E9%92%A5%E5%BA%93%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF"><span class="toc-number">1.0.3.</span> <span class="toc-text">查看密钥库中的信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%AF%86%E9%92%A5%E5%BA%93KS%E4%B8%AD%E7%9A%84%E6%9D%A1%E7%9B%AE"><span class="toc-number">1.0.4.</span> <span class="toc-text">修改密钥库KS中的条目</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BE%80%E5%AF%86%E9%92%A5%E5%BA%93KS%E4%B8%AD%E6%B7%BB%E5%8A%A0%E6%9D%A1%E7%9B%AEalias2"><span class="toc-number">1.0.5.</span> <span class="toc-text">往密钥库KS中添加条目alias2</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%AF%86%E9%92%A5%E5%BA%93KS%E4%B8%AD%E7%9A%84%E6%9D%A1%E7%9B%AEalias2"><span class="toc-number">1.0.6.</span> <span class="toc-text">删除密钥库KS中的条目alias2</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%9D%A1%E7%9B%AE%E5%8F%A3%E4%BB%A4-%E5%AF%86%E9%92%A5%E5%BA%93%E7%9A%84%E5%AF%86%E7%A0%81"><span class="toc-number">1.0.7.</span> <span class="toc-text">修改条目口令&#x2F;密钥库的密码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6%E8%AF%B7%E6%B1%82-%E4%B8%8E-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6"><span class="toc-number">1.0.8.</span> <span class="toc-text">生成证书请求 与 生成证书</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E8%AF%81%E4%B9%A6-KeyStore"><span class="toc-number">1.0.9.</span> <span class="toc-text">导入证书&#x2F;KeyStore</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%89%93%E5%8D%B0%E8%AF%81%E4%B9%A6%E8%AF%B7%E6%B1%82-%E8%AF%81%E4%B9%A6"><span class="toc-number">1.0.10.</span> <span class="toc-text">打印证书请求&#x2F;证书</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B-openssl%E7%94%A8%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">B.openssl用法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E6%89%BEopenssl%E5%91%BD%E4%BB%A4%E5%B8%AE%E5%8A%A9"><span class="toc-number">2.0.1.</span> <span class="toc-text">查找openssl命令帮助</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90RSA%E5%AF%86%E9%92%A5%E6%96%87%E4%BB%B6%EF%BC%88%E5%90%AB%E5%AF%86%E9%92%A5%E6%96%87%E4%BB%B6%E7%9A%84%E5%8A%A0%E5%AF%86%E5%AF%86%E7%A0%81passout%EF%BC%89"><span class="toc-number">2.0.2.</span> <span class="toc-text">生成RSA密钥文件（含密钥文件的加密密码passout）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90-%E8%AF%81%E4%B9%A6%E8%AF%B7%E6%B1%82%E6%96%87%E4%BB%B6CR%EF%BC%88%E4%BD%BF%E7%94%A8%E5%B7%B2%E5%AD%98%E5%9C%A8%E5%AF%86%E9%92%A5%E6%96%87%E4%BB%B6key-pem%EF%BC%89"><span class="toc-number">2.0.3.</span> <span class="toc-text">生成 证书请求文件CR（使用已存在密钥文件key.pem）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5%E6%96%87%E4%BB%B6-%E5%BF%85%E9%A1%BB%E6%8C%87%E5%AE%9A%E6%96%87%E4%BB%B6%E5%8A%A0%E5%AF%86%E5%AF%86%E9%92%A5passout-%EF%BC%8C%E5%90%8C%E6%97%B6%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6%E8%AF%B7%E6%B1%82%E6%96%87%E4%BB%B6%EF%BC%88%E4%B8%8A%E9%9D%A2%E4%B8%A4%E6%AD%A5%E7%BB%93%E5%90%88%EF%BC%89"><span class="toc-number">2.0.4.</span> <span class="toc-text">生成密钥文件(必须指定文件加密密钥passout)，同时生成证书请求文件（上面两步结合）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E8%87%AA%E7%AD%BE%E5%90%8D%E7%9A%84CA%E6%A0%B9%E8%AF%81%E4%B9%A6%EF%BC%88-X509%EF%BC%89"><span class="toc-number">2.0.5.</span> <span class="toc-text">生成自签名的CA根证书（-X509）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%94%9F%E6%88%90%E7%9A%84%E8%AF%81%E4%B9%A6%E8%AF%B7%E6%B1%82-%E8%AF%81%E4%B9%A6"><span class="toc-number">2.0.6.</span> <span class="toc-text">查看生成的证书请求&#x2F;证书</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C-%E5%AE%9E%E4%BE%8B%EF%BC%9A%E8%87%AA%E7%AD%BE%E5%8F%91CA-openssl-keytool"><span class="toc-number">3.</span> <span class="toc-text">C.实例：自签发CA(openssl+keytool)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90-%E5%AF%86%E9%92%A5%E6%96%87%E4%BB%B6-%E5%8A%A0%E5%AF%86%E5%AF%86%E9%92%A5-%E6%A0%B9%E8%AF%81%E4%B9%A6"><span class="toc-number">3.0.1.</span> <span class="toc-text">生成 密钥文件&#x2F;加密密钥&#x2F;根证书</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AFtruststore"><span class="toc-number">3.0.2.</span> <span class="toc-text">生成 服务器端truststore</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90-%E5%AE%A2%E6%88%B7%E7%AB%AF-%E5%AF%86%E9%92%A5%E5%AF%B9keypair-%E8%AF%81%E4%B9%A6%E8%AF%B7%E6%B1%82%E6%96%87%E4%BB%B6"><span class="toc-number">3.0.3.</span> <span class="toc-text">生成 客户端 密钥对keypair&#x2F;证书请求文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BACR%E6%96%87%E4%BB%B6%E7%AD%BE%E5%90%8D"><span class="toc-number">3.0.4.</span> <span class="toc-text">为CR文件签名</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B0%86CS%E6%96%87%E4%BB%B6%E8%A6%86%E7%9B%96keypair%EF%BC%8CCA%E6%A0%B9%E6%96%87%E4%BB%B6%E5%AF%BC%E5%85%A5%E6%9C%AC%E5%9C%B0%E5%BA%93local-jks%E4%B8%AD"><span class="toc-number">3.0.5.</span> <span class="toc-text">将CS文件覆盖keypair，CA根文件导入本地库local.jks中</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%99%84%EF%BC%9A%E5%B0%86%E6%9C%AC%E5%9C%B0jks%E8%BD%AC%E6%88%90pkcs12%E5%BA%93%E6%A0%BC%E5%BC%8F%EF%BC%8C%E5%90%8C%E6%97%B6%E5%88%86%E5%88%AB%E6%8F%90%E5%8F%96%E5%87%BAkey-cert"><span class="toc-number">3.0.6.</span> <span class="toc-text">附：将本地jks转成pkcs12库格式，同时分别提取出key&#x2F;cert</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            Keytool/Openssl使用场景与自签名Ca
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://ipple1986.github.io/2021/03/18/Keytool-Openssl%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8E%E8%87%AA%E7%AD%BE%E5%90%8DCa/index.html">
+    
+    <i class="icon-calendar vm"></i>
+    
+    <time class="vm" datetime="2021-03-18T10:32:42.000Z" itemprop="datePublished">2021-03-18</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag vm"></i>
+    <a class="article-tag-link" href="/tags/%E8%AF%81%E4%B9%A6%E7%AD%BE%E5%8F%91/" rel="tag">证书签发</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <ul>
+<li>A.keytool用法</li>
+<li>B.openssl用法</li>
+<li>C.实例：openssl+keytool</li>
+</ul>
+<h3 id="A-keytool用法"><a href="#A-keytool用法" class="headerlink" title="A.keytool用法"></a>A.keytool用法</h3><h5 id="查看keytool帮助"><a href="#查看keytool帮助" class="headerlink" title="查看keytool帮助"></a>查看keytool帮助</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool [-<span class="built_in">help</span>]</span>  </span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -genkey [-]<span class="built_in">help</span></span></span><br></pre></td></tr></table></figure>
+<h5 id="生成密钥-密钥对、存储密钥的库（不指定storetype时，默认jks类型）"><a href="#生成密钥-密钥对、存储密钥的库（不指定storetype时，默认jks类型）" class="headerlink" title="生成密钥/密钥对、存储密钥的库（不指定storetype时，默认jks类型）"></a>生成密钥/密钥对、存储密钥的库（不指定storetype时，默认jks类型）</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -genkey/genkeypair -<span class="built_in">alias</span> <span class="built_in">alias</span> -keyalg RSA -keysize 1024 -validity 365 -keystore keystore.jks -storetype jks -keypass 123456 -storepass 123456</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-alias 指定密钥库中的条目名称</span><br><span class="line">-keystore 密钥库文件/默认.keystore</span><br><span class="line">-storetype 默认jks/推荐使用pkcs12</span><br><span class="line">-startdate 证书有效期开始时间</span><br><span class="line">-ext x509扩展信息</span><br><span class="line">-dname 指定&quot;CN=localhost, OU=GroupName, O=Company, C=CN&quot;</span><br><span class="line">-v 详细打印输出</span><br></pre></td></tr></table></figure>
+
+<h5 id="查看密钥库中的信息"><a href="#查看密钥库中的信息" class="headerlink" title="查看密钥库中的信息"></a>查看密钥库中的信息</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -list -keystore keystore.jks -storepass 123456</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="修改密钥库KS中的条目"><a href="#修改密钥库KS中的条目" class="headerlink" title="修改密钥库KS中的条目"></a>修改密钥库KS中的条目</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -changealias -keystore keystore.jks -<span class="built_in">alias</span> <span class="built_in">alias</span> -destalias alias1 -storepass 123456</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -list -keystore keystore.jks -storepass 123456</span></span><br></pre></td></tr></table></figure>
+<h5 id="往密钥库KS中添加条目alias2"><a href="#往密钥库KS中添加条目alias2" class="headerlink" title="往密钥库KS中添加条目alias2"></a>往密钥库KS中添加条目alias2</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -genkeypair -<span class="built_in">alias</span> alias2 -keyalg RSA -keysize 1024 -validity 365 -keystore keystore.jks -storetype jks -keypass 654321 -storepass 123456</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -list -keystore keystore.jks -storepass 123456</span></span><br></pre></td></tr></table></figure>
+<h5 id="删除密钥库KS中的条目alias2"><a href="#删除密钥库KS中的条目alias2" class="headerlink" title="删除密钥库KS中的条目alias2"></a>删除密钥库KS中的条目alias2</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -delete -keystore keystore.jks -<span class="built_in">alias</span> alias2 -storepass 123456</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -list -keystore keystore.jks -storepass 123456</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="修改条目口令-密钥库的密码"><a href="#修改条目口令-密钥库的密码" class="headerlink" title="修改条目口令/密钥库的密码"></a>修改条目口令/密钥库的密码</h5><figure class="highlight shell"><figcaption><span>修改某条目的密码</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -keypasswd -keystore keystore.jks -storepass 123456 -keypass 123456 -<span class="built_in">alias</span> alias1 -new 654321</span> </span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -storepasswd -keystore keystore.jks -storepass 123456 -new 654321</span></span><br></pre></td></tr></table></figure>
+<h5 id="生成证书请求-与-生成证书"><a href="#生成证书请求-与-生成证书" class="headerlink" title="生成证书请求 与 生成证书"></a>生成证书请求 与 生成证书</h5><figure class="highlight shell"><figcaption><span>用某一条目，生成证书请求</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -certreq -keystore keystore.jks -storepass 123456 -<span class="built_in">alias</span> alias1 -keypass 123456 -file alias1.cr</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -gencert -infile alias1.cr -outfile alias1.cert -storepass 123456</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="导入证书-KeyStore"><a href="#导入证书-KeyStore" class="headerlink" title="导入证书/KeyStore"></a>导入证书/KeyStore</h5><figure class="highlight shell"><figcaption><span>导入存在或不存在的KS中，指定alias条目别名</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -importcert  -trustcacerts -<span class="built_in">alias</span> alias11 -file alias1.cert -keystore alias.jks -storepass 246800 -keypass 135790</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -list -keystore alias.jks -storepass 246800</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><figcaption><span>将keystore.jks中alias1导到alias.jks中的新建条目new11上，并设置条目口令为222222</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -importkeystore -srckeystore keystore.jks -destkeystore alias.jks -srcstorepass 123456 -deststorepass 246800  -srcalias alias1 -destalias new11 -srckeypass 123456 -destkeypass 222222</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -list -keystore alias.jks -storepass 246800</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="打印证书请求-证书"><a href="#打印证书请求-证书" class="headerlink" title="打印证书请求/证书"></a>打印证书请求/证书</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -printcertreq -file alias1.cr</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -printcert -f alias1.cert</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="B-openssl用法"><a href="#B-openssl用法" class="headerlink" title="B.openssl用法"></a>B.openssl用法</h3><h5 id="查找openssl命令帮助"><a href="#查找openssl命令帮助" class="headerlink" title="查找openssl命令帮助"></a>查找openssl命令帮助</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> openssl <span class="built_in">help</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> openssl genrsa/req -<span class="built_in">help</span></span></span><br></pre></td></tr></table></figure>
+
+<h5 id="生成RSA密钥文件（含密钥文件的加密密码passout）"><a href="#生成RSA密钥文件（含密钥文件的加密密码passout）" class="headerlink" title="生成RSA密钥文件（含密钥文件的加密密码passout）"></a>生成RSA密钥文件（含密钥文件的加密密码passout）</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> openssl genrsa -out key.pem [-passout pass:123456] 1024</span></span><br></pre></td></tr></table></figure>
+<h5 id="生成-证书请求文件CR（使用已存在密钥文件key-pem）"><a href="#生成-证书请求文件CR（使用已存在密钥文件key-pem）" class="headerlink" title="生成 证书请求文件CR（使用已存在密钥文件key.pem）"></a>生成 证书请求文件CR（使用已存在密钥文件key.pem）</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> openssl req -new -key key.pem -out req.cr // CN/O/LN/ON/OU/CN</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="生成密钥文件-必须指定文件加密密钥passout-，同时生成证书请求文件（上面两步结合）"><a href="#生成密钥文件-必须指定文件加密密钥passout-，同时生成证书请求文件（上面两步结合）" class="headerlink" title="生成密钥文件(必须指定文件加密密钥passout)，同时生成证书请求文件（上面两步结合）"></a>生成密钥文件(必须指定文件加密密钥passout)，同时生成证书请求文件（上面两步结合）</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> openssl req -newkey rsa:1024 -keyout key.pem1 -out req.cr1 -passout pass:123456</span></span><br></pre></td></tr></table></figure>
+<h5 id="生成自签名的CA根证书（-X509）"><a href="#生成自签名的CA根证书（-X509）" class="headerlink" title="生成自签名的CA根证书（-X509）"></a>生成自签名的CA根证书（-X509）</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> openssl req -new -X509 -keyout ca.key -out caroot -passout pass:123456 [-config template.conf]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[ req ]</span><br><span class="line">distinguished_name = req_distinguished_name</span><br><span class="line">prompt = no</span><br><span class="line">output_password = 123456</span><br><span class="line">default_bits = 2048</span><br><span class="line">[ req_distinguished_name ]</span><br><span class="line">C = Country</span><br><span class="line">ST = State Or Province Name</span><br><span class="line">O = Organization Name</span><br><span class="line">LN = Local Name</span><br><span class="line">OU = Organization Unit</span><br><span class="line">CN = CommonName(!important)</span><br><span class="line">EA = EmailAddress</span><br></pre></td></tr></table></figure>
+
+<h5 id="查看生成的证书请求-证书"><a href="#查看生成的证书请求-证书" class="headerlink" title="查看生成的证书请求/证书"></a>查看生成的证书请求/证书</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> openssl req -<span class="keyword">in</span> xxx -noout -text [-subject]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="C-实例：自签发CA-openssl-keytool"><a href="#C-实例：自签发CA-openssl-keytool" class="headerlink" title="C.实例：自签发CA(openssl+keytool)"></a>C.实例：自签发CA(openssl+keytool)</h3><h5 id="生成-密钥文件-加密密钥-根证书"><a href="#生成-密钥文件-加密密钥-根证书" class="headerlink" title="生成 密钥文件/加密密钥/根证书"></a>生成 密钥文件/加密密钥/根证书</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> openssl req -new -x509  -keyout cakey.pem -out caroot.pem -days 36500 -config temp.conf</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-x509 x小写，代表自签发X509格式的证书</span><br><span class="line">-new 等价于-newkey rsa:2048</span><br><span class="line">-keyout 输出CA私有密钥文件</span><br><span class="line">-out 输出根证书文件</span><br><span class="line">-days 有效期，以天为单位</span><br><span class="line">-passout pass:xxx 输出pem文件的密码，相当于template.conf的output_password字段</span><br><span class="line">-config 模板文件，内容如下</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><figcaption><span>temp.conf</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[ req ]</span><br><span class="line">distinguished_name = request_distinguished_name</span><br><span class="line">prompt = no</span><br><span class="line">output_password = 888888</span><br><span class="line">default_bits = 2048</span><br><span class="line">[ request_distinguished_name ]</span><br><span class="line">C = CN</span><br><span class="line">ST = GD</span><br><span class="line">O = Jim</span><br><span class="line">OU = JimTechCom</span><br><span class="line">CN = 192.168.1.168</span><br></pre></td></tr></table></figure>
+<h5 id="生成-服务器端truststore"><a href="#生成-服务器端truststore" class="headerlink" title="生成 服务器端truststore"></a>生成 服务器端truststore</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -importcert -file caroot.pem -keystore truststore.jks -storepass 111111 -<span class="built_in">alias</span> caroot -keypass 222222 -noprompt</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="生成-客户端-密钥对keypair-证书请求文件"><a href="#生成-客户端-密钥对keypair-证书请求文件" class="headerlink" title="生成 客户端 密钥对keypair/证书请求文件"></a>生成 客户端 密钥对keypair/证书请求文件</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -genkeypair -keyalg RSA -keysize 2048 -validity 36500 -<span class="built_in">alias</span> <span class="built_in">local</span> -keypass 333333 -keystore local.jks -storepass 333333 -dname <span class="string">&quot;CN=local, OU=GN, O=Jim, C=CN&quot;</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -certreq -file local.cr -<span class="built_in">alias</span> <span class="built_in">local</span> -keypass 333333 -keystore local.jks -storepass 333333</span></span><br></pre></td></tr></table></figure>
+<h5 id="为CR文件签名"><a href="#为CR文件签名" class="headerlink" title="为CR文件签名"></a>为CR文件签名</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> openssl x509 -req -CA caroot.pem -CAkey cakey.pem -CAcreateserial -days 36500 -<span class="keyword">in</span> local.cr -out local.cs -passin pass:888888</span></span><br></pre></td></tr></table></figure>
+<h5 id="将CS文件覆盖keypair，CA根文件导入本地库local-jks中"><a href="#将CS文件覆盖keypair，CA根文件导入本地库local-jks中" class="headerlink" title="将CS文件覆盖keypair，CA根文件导入本地库local.jks中"></a>将CS文件覆盖keypair，CA根文件导入本地库local.jks中</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -importcert -file caroot.pem -<span class="built_in">alias</span> caroot -keypass 444444 -keystore local.jks -storepass 333333</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -importcert -file local.cs -<span class="built_in">alias</span> <span class="built_in">local</span> -keypass 333333  -keystore local.jks -storepass 333333</span></span><br></pre></td></tr></table></figure>
+<h5 id="附：将本地jks转成pkcs12库格式，同时分别提取出key-cert"><a href="#附：将本地jks转成pkcs12库格式，同时分别提取出key-cert" class="headerlink" title="附：将本地jks转成pkcs12库格式，同时分别提取出key/cert"></a>附：将本地jks转成pkcs12库格式，同时分别提取出key/cert</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keytool -importkeystore -<span class="built_in">alias</span> <span class="built_in">local</span> -srckeystore local.jks -destkeystore local.p12 -srcstorepass 333333 -deststorepass 333333 -deststoretype PKCS12</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> openssl pkcs12 -<span class="keyword">in</span> local.p12 -nokeys -passin pass:333333 -out cert.p12</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> openssl pkcs12 -<span class="keyword">in</span> local.p12 -nocerts -nodes -passin pass:333333 -out key.p12</span></span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">temp.conf</span><br><span class="line">caroot.pem</span><br><span class="line">cakey.pem   </span><br><span class="line">caroot.srl  </span><br><span class="line">local.cr</span><br><span class="line">local.cs</span><br><span class="line">truststore.jks</span><br><span class="line">local.jks</span><br><span class="line">local.p12</span><br><span class="line">key.p12        </span><br><span class="line">cert.p12        </span><br></pre></td></tr></table></figure>
+
+<p>Gradle配置阿里云maven仓库时，项目构建报：<br>sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target  </p>
+<p>官方下载cer https证书,导入jdk cacert证书库中，默认仓库密码changeit</p>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/2020/06/15/%E4%BD%BF%E7%94%A8Python-Scrapy%E7%88%AC%E5%8F%96allitebooks-org%E6%95%B0%E6%8D%AE/" class="article-next" title="使用Python Scrapy爬取allitebooks.org数据"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/2021/05/21/%E7%BC%96%E8%A7%A3%E7%A0%81utf8-basee64-obfuscate/" class="article-prev" title="编解码utf8/basee64/obfuscate"><i class="icon-arrow-left"></i></a>
+
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://unpkg.com/jquery@1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle('normal', slideDone);
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp('normal', slideDone);
+            }, 3000);
+        }
+
+        function slideDone() {
+            if (nodes.navInner.css('display') !== 'none') {
+                nodes.navInner.css('display', '');
+            }
+        }
+
+        $(window).on('resize', function() {
+            if ($(this).width() > 960) {
+                nodes.navInner.css('display', '');
+            }
+        });
+    });
+    </script>
+    
+        
+<script src="/js/scrollspy.min.js"></script>
+
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>
