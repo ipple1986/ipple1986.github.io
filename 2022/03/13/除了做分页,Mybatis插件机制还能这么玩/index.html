@@ -7,7 +7,7 @@
 
     
 
-    <title>Jim&#39;s Personal Blog</title>
+    <title>除了做分页,Mybatis插件机制还能这么玩 | Jim&#39;s Personal Blog</title>
     <meta name="author" content="Jim" />
     <meta name="keywords" content="" />
     <meta name="description" content="背景：项目中使用Mybatis做持久层，数据库表设计上存在很多表存在共同的字段，比如创建/更新者、创建/修建时间字段。做法：对于表映射的实体类，可以将相同的字段抽离到父类（抽象或者普通类），但需要维护这些字段数据的插入/修改。问题：如何更新/维护这些共同的字段？如果一次操作涉及到多张存在相同字段的表又该如何做？DEMO技术栈：SpringBoot + Mybatis + H2 + SpringSecuritySpringBoot 主要利用spring-boot-starter-web来实现测试接" />
@@ -117,6 +117,30 @@
             <div id="wrapper" class="wrapper" style="max-width: 800px">
                 <article class="article" itemscope itemprop="blogPost">
     
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            除了做分页,Mybatis插件机制还能这么玩
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://ipple1986.github.io/2022/03/13/%E9%99%A4%E4%BA%86%E5%81%9A%E5%88%86%E9%A1%B5,Mybatis%E6%8F%92%E4%BB%B6%E6%9C%BA%E5%88%B6%E8%BF%98%E8%83%BD%E8%BF%99%E4%B9%88%E7%8E%A9/index.html">
+    
+    <i class="icon-calendar vm"></i>
+    
+    <time class="vm" datetime="2022-03-13T13:13:12.000Z" itemprop="datePublished">2022-03-13 21:13:12</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag vm"></i>
+    <a class="article-tag-link" href="/tags/Mybatis/" rel="tag">Mybatis</a>, <a class="article-tag-link" href="/tags/%E6%8C%81%E4%B9%85%E5%B1%82/" rel="tag">持久层</a>
+</div>
+
+
+        </div>
+    </header>
+    
     <section class="article-body markdown-body">
         
         <h3 id="背景：项目中使用Mybatis做持久层，数据库表设计上存在很多表存在共同的字段，比如创建-更新者、创建-修建时间字段。"><a href="#背景：项目中使用Mybatis做持久层，数据库表设计上存在很多表存在共同的字段，比如创建-更新者、创建-修建时间字段。" class="headerlink" title="背景：项目中使用Mybatis做持久层，数据库表设计上存在很多表存在共同的字段，比如创建/更新者、创建/修建时间字段。"></a>背景：项目中使用Mybatis做持久层，数据库表设计上存在很多表存在共同的字段，比如创建/更新者、创建/修建时间字段。</h3><h3 id="做法：对于表映射的实体类，可以将相同的字段抽离到父类（抽象或者普通类），但需要维护这些字段数据的插入-修改。"><a href="#做法：对于表映射的实体类，可以将相同的字段抽离到父类（抽象或者普通类），但需要维护这些字段数据的插入-修改。" class="headerlink" title="做法：对于表映射的实体类，可以将相同的字段抽离到父类（抽象或者普通类），但需要维护这些字段数据的插入/修改。"></a>做法：对于表映射的实体类，可以将相同的字段抽离到父类（抽象或者普通类），但需要维护这些字段数据的插入/修改。</h3><h3 id="问题：如何更新-维护这些共同的字段？如果一次操作涉及到多张存在相同字段的表又该如何做？"><a href="#问题：如何更新-维护这些共同的字段？如果一次操作涉及到多张存在相同字段的表又该如何做？" class="headerlink" title="问题：如何更新/维护这些共同的字段？如果一次操作涉及到多张存在相同字段的表又该如何做？"></a>问题：如何更新/维护这些共同的字段？如果一次操作涉及到多张存在相同字段的表又该如何做？</h3><h3 id="DEMO技术栈：SpringBoot-Mybatis-H2-SpringSecurity"><a href="#DEMO技术栈：SpringBoot-Mybatis-H2-SpringSecurity" class="headerlink" title="DEMO技术栈：SpringBoot + Mybatis + H2 + SpringSecurity"></a>DEMO技术栈：SpringBoot + Mybatis + H2 + SpringSecurity</h3><ul>
@@ -149,8 +173,8 @@
 
 
 
+<a id="pagenext" href="/2022/03/12/%E9%80%9A%E7%94%A8%E5%8C%96%E9%80%92%E5%BD%92%E5%BB%BA%E6%A0%91%E4%B8%8E%E8%A3%81%E5%89%AA%E6%A0%91/" class="article-next" title="通用化递归建树与裁剪树"><i class="icon-arrow-right"></i></a>
 
-<a id="pageprev" href="/2020/06/15/%E4%BD%BF%E7%94%A8Python-Scrapy%E7%88%AC%E5%8F%96allitebooks-org%E6%95%B0%E6%8D%AE/" class="article-prev" title="使用Python Scrapy爬取allitebooks.org数据"><i class="icon-arrow-left"></i></a>
 
 
 
